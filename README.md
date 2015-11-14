@@ -17,7 +17,7 @@ to your `composer.json` file:
 ```json
 {
     "require": {
-        "ubitransports/omnipay-payzen": "~1.0"
+        "ubitransports/omnipay-payzen": "dev-master"
     }
 }
 ```
