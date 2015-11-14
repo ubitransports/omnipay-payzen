@@ -7,7 +7,6 @@ namespace Omnipay\PayZen\Message;
  */
 abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
 {
-    public $liveEndpoint = 'https://secure.payzen.eu/vads-payment/';
 
     public function getMerchantId()
     {
@@ -37,11 +36,6 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
     public function setCertificate($value)
     {
         return $this->setParameter('certificate', $value);
-    }
-
-    public function getEndpoint()
-    {
-        return $this->liveEndpoint;
     }
 
     public function formatCurrency($amount)

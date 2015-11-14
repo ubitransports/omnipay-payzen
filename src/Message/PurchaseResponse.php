@@ -10,6 +10,12 @@ use Omnipay\Common\Message\RedirectResponseInterface;
  */
 class PurchaseResponse extends AbstractResponse implements RedirectResponseInterface
 {
+    public $liveEndpoint = 'https://secure.payzen.eu/vads-payment/';
+
+    public function getEndpoint()
+    {
+        return $this->liveEndpoint;
+    }
 
     public function isSuccessful()
     {
