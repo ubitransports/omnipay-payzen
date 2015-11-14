@@ -1,0 +1,30 @@
+{
+    "name": "ubitransports/omnipay-payzen",
+    "type": "library",
+    "description": "PayZen driver for the Omnipay payment processing library",
+    "keywords": [
+        "gateway",
+        "merchant",
+        "omnipay",
+        "pay",
+        "payment",
+        "payzen"
+    ],
+    "homepage": "https://github.com/ubitransports/omnipay-payzen",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Ubi Transports",
+            "homepage": "https://github.com/ubitransports"
+        }
+    ],
+    "autoload": {
+        "psr-4": { "Omnipay\\PayZen\\" : "src/" }
+    },
+    "require": {
+        "omnipay/common": "~2.0"
+    },
+    "require-dev": {
+        "omnipay/tests": "~2.0"
+    }
+}
