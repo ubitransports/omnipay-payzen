@@ -52,7 +52,7 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
         ksort($data);
 
         // Filter only the vads_* fields
-        $matchedKeys = array_filter(array_keys($data), function($v) {
+        $matchedKeys = array_filter(array_keys($data), function ($v) {
             return strpos($v, 'vads_') === 0;
         });
         $data = array_intersect_key($data, array_flip($matchedKeys));
