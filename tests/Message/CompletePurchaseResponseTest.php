@@ -7,7 +7,7 @@ class CompletePurchaseResponseTest extends TestCase
 {
     public function testConstruct()
     {
-        $response = new CompletePurchaseresponse($this->getMockRequest(), array(
+        $response = new CompletePurchaseResponse($this->getMockRequest(), array(
             'vads_amount' => '3000',
             'vads_auth_mode' => 'FULL',
             'vads_auth_number' => '3fb0de',
