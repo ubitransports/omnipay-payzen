@@ -29,6 +29,5 @@ class PurchaseResponseTest extends TestCase
         $this->assertTrue($this->response->isRedirect());
         $this->assertSame('https://secure.payzen.eu/vads-payment/', $this->response->getRedirectUrl());
         $this->assertSame('POST', $this->response->getRedirectMethod());
-        $this->assertFalse(empty($this->response->getRedirectData()));
     }
 }
