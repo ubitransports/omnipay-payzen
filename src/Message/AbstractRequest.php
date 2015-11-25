@@ -38,23 +38,28 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
         return $this->setParameter('certificate', $value);
     }
 
-    public function getSuccessUrl() {
+    public function getSuccessUrl()
+    {
         return $this->getParameter('successUrl');
     }
 
-    public function getCancelUrl() {
+    public function getCancelUrl()
+    {
         return $this->getParameter('cancelUrl');
     }
 
-    public function getErrorUrl() {
+    public function getErrorUrl()
+    {
         return $this->getParameter('errorUrl');
     }
 
-    public function getRefusedUrl() {
+    public function getRefusedUrl()
+    {
         return $this->getParameter('refusedUrl');
     }
 
-    public function getOrderId() {
+    public function getOrderId()
+    {
         return $this->getParameter('orderId');
     }
 
@@ -63,7 +68,8 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
         return strval(intval($amount * 100));
     }
 
-    public function addParameter($key, $value) {
+    public function addParameter($key, $value)
+    {
         return $this->parameters->set($key, $value);
     }
 
