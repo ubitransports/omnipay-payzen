@@ -28,6 +28,11 @@ class PurchaseRequest extends AbstractRequest
         $data['vads_payment_config'] = 'SINGLE';
         $data['vads_capture_delay'] = 0;
         $data['vads_validation_mode'] = 0;
+        $data['vads_url_success'] = $this->getSuccessUrl();
+        $data['vads_url_cancel'] = $this->getCancelUrl();
+        $data['vads_url_error'] = $this->getErrorUrl();
+        $data['vads_url_refused'] = $this->getRefusedUrl();
+        $data['vads_order_id'] = $this->getOrderId();
 
         // Customer infos
         if ($this->getCard()) {
