@@ -37,6 +37,7 @@ class PurchaseRequestTest extends TestCase
         $this->assertSame('V2', $data['vads_version']);
         $this->assertSame('654321', $data['vads_trans_id']);
         $this->assertSame('20090501193530', $data['vads_trans_date']);
-        $this->assertSame('681cb2b21fc412c4ac56ba6d7db1ef15250fba84', $data['signature']);
+
+        $this->assertSame('4ba452ab77304909a9e0432f2f8fce842d0f7fe7', $data['signature']);
     }
 }
