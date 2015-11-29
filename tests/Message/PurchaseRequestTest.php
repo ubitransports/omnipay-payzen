@@ -19,7 +19,13 @@ class PurchaseRequestTest extends TestCase
             'currency'                  => 'EUR',
             'testMode'                  => true,
             'transactionDate'           => '20090501193530',
-            'certificate'               => '1122334455667788'
+            'certificate'               => '1122334455667788',
+            'orderId'                   => '123',
+            'successUrl'                => 'http://success',
+            'cancelUrl'                 => 'http://cancel',
+            'errorUrl'                  => 'http://error',
+            'refusedUrl'                => 'http://refused',
+            'notifyUrl'                 => 'http://notify',
         ));
     }
 
@@ -37,7 +43,11 @@ class PurchaseRequestTest extends TestCase
         $this->assertSame('V2', $data['vads_version']);
         $this->assertSame('654321', $data['vads_trans_id']);
         $this->assertSame('20090501193530', $data['vads_trans_date']);
-
-        $this->assertSame('4ba452ab77304909a9e0432f2f8fce842d0f7fe7', $data['signature']);
+        $this->assertSame('123', $data['vads_order_id']);
+        $this->assertSame('http://success', $data['vads_url_success']);
+        $this->assertSame('http://cancel', $data['vads_url_cancel']);
+        $this->assertSame('http://error', $data['vads_url_error']);
+        $this->assertSame('http://refused', $data['vads_url_refused']);
+        $this->assertSame('6800e5c9c0b99a8bf85d8c82e75872fbaa8d1fde', $data['signature']);
     }
 }
