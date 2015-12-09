@@ -88,6 +88,16 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
         return $this->getParameter('orderId');
     }
 
+    public function setUuid($value)
+    {
+        return $this->setParameter('vads_trans_uuid', $value);
+    }
+
+    public function getUuid()
+    {
+        return $this->setParameter('vads_trans_uuid');
+    }
+
     public function formatCurrency($amount)
     {
         return strval(intval($amount * 100));
