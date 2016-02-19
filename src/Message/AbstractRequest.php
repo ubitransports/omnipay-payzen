@@ -78,6 +78,16 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
         return $this->getParameter('refusedUrl');
     }
 
+    public function setPaymentCards($value)
+    {
+        $this->setParameter('paymentCards', $value);
+    }
+
+    public function getPaymentCards()
+    {
+        return $this->getParameter('paymentCards');
+    }
+
     public function setOrderId($value)
     {
         return $this->setParameter('orderId', $value);
