@@ -110,7 +110,7 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
 
     public function formatCurrency($amount)
     {
-        return strval(intval($amount * 100));
+        return (string) intval(strval($amount * 100));
     }
 
     public function addParameter($key, $value)
