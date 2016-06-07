@@ -48,6 +48,6 @@ class PurchaseRequestTest extends TestCase
         $this->assertSame('http://cancel', $data['vads_url_cancel']);
         $this->assertSame('http://error', $data['vads_url_error']);
         $this->assertSame('http://refused', $data['vads_url_refused']);
-        $this->assertSame('6800e5c9c0b99a8bf85d8c82e75872fbaa8d1fde', $data['signature']);
+        $this->assertSame('1e44c55b059db1b4d1b704d0bcede1fc273add9b', $data['signature']);
     }
 }
