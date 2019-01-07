@@ -20,7 +20,7 @@ class PurchaseRequest extends AbstractRequest
         $data['vads_ctx_mode'] = $this->getTestMode() ? 'TEST' : 'PRODUCTION';
         $data['vads_trans_id'] = $this->getTransactionId();
         $data['vads_trans_date'] = $this->getTransactionDate();
-        $data['vads_amount'] = $this->getAmount();
+        $data['vads_amount'] = str_replace('.', '', $this->getAmount());
         $data['vads_currency'] = $this->getCurrencyNumeric();
         $data['vads_action_mode'] = 'INTERACTIVE';
         $data['vads_page_action'] = 'PAYMENT';
