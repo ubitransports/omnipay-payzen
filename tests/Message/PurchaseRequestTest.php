@@ -33,7 +33,7 @@ class PurchaseRequestTest extends TestCase
     {
         $data = $this->request->getData();
 
-        $this->assertSame('1524', $data['vads_amount']);
+        $this->assertSame('15.24', $data['vads_amount']);
         $this->assertSame('12345678', $data['vads_site_id']);
         $this->assertSame('978', $data['vads_currency']);
         $this->assertSame('INTERACTIVE', $data['vads_action_mode']);
@@ -48,6 +48,6 @@ class PurchaseRequestTest extends TestCase
         $this->assertSame('http://cancel', $data['vads_url_cancel']);
         $this->assertSame('http://error', $data['vads_url_error']);
         $this->assertSame('http://refused', $data['vads_url_refused']);
-        $this->assertSame('1e44c55b059db1b4d1b704d0bcede1fc273add9b', $data['signature']);
+        $this->assertSame('aedab7495c54ff978d901d5bdc22deed9f60df6e', $data['signature']);
     }
 }
