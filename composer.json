@@ -22,9 +22,11 @@
         "psr-4": { "Omnipay\\PayZen\\" : "src/" }
     },
     "require": {
-        "omnipay/common": "~2.0"
+        "omnipay/common": "~3.0"
     },
     "require-dev": {
-        "omnipay/tests": "~2.0"
+        "omnipay/tests": "~3.0",
+        "phpunit/phpunit": "^5.2|^6.5",
+        "squizlabs/php_codesniffer": "^3.2"
     }
 }

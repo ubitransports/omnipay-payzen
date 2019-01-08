@@ -18,7 +18,7 @@ class GatewayTest extends GatewayTestCase
         $request = $this->gateway->purchase(array('amount' => '10.00'));
 
         $this->assertInstanceOf('Omnipay\PayZen\Message\PurchaseRequest', $request);
-        $this->assertSame('1000', $request->getAmount());
+        $this->assertSame('10.00', $request->getAmount());
     }
 
     public function testCompletePurchase()
@@ -26,7 +26,7 @@ class GatewayTest extends GatewayTestCase
         $request = $this->gateway->completePurchase(array('amount' => '10.00'));
 
         $this->assertInstanceOf('Omnipay\PayZen\Message\CompletePurchaseRequest', $request);
-        $this->assertSame('1000', $request->getAmount());
+        $this->assertSame('10.00', $request->getAmount());
     }
 
 }
