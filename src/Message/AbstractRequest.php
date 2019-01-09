@@ -78,6 +78,36 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
         return $this->getParameter('refusedUrl');
     }
 
+    public function getCheckUrl()
+    {
+        return $this->getParameter('checkUrl');
+    }
+
+    public function setCheckUrl($value)
+    {
+        return $this->setParameter('checkUrl', $value);
+    }
+
+    public function getReturnUrl()
+    {
+        return $this->getParameter('returnUrl');
+    }
+
+    public function setReturnUrl($value)
+    {
+        return $this->setParameter('returnUrl', $value);
+    }
+
+    public function getReturnMode()
+    {
+        return $this->getParameter('returnMode');
+    }
+
+    public function setReturnMode($value)
+    {
+        return $this->setParameter('returnMode', $value);
+    }
+
     public function setPaymentCards($value)
     {
         $this->setParameter('paymentCards', $value);
@@ -96,6 +126,106 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
     public function getOrderId()
     {
         return $this->getParameter('orderId');
+    }
+
+    public function setOrderInfo($value)
+    {
+        return $this->setParameter('orderInfo', $value);
+    }
+
+    public function getOrderInfo()
+    {
+        return $this->getParameter('orderInfo');
+    }
+
+    public function setOrderInfo2($value)
+    {
+        return $this->setParameter('orderInfo2', $value);
+    }
+
+    public function getOrderInfo2()
+    {
+        return $this->getParameter('orderInfo2');
+    }
+
+    public function setOrderInfo3($value)
+    {
+        return $this->setParameter('orderInfo3', $value);
+    }
+
+    public function getOrderInfo3()
+    {
+        return $this->getParameter('orderInfo3');
+    }
+
+    public function setCustomerId($value)
+    {
+        return $this->setParameter('customerId', $value);
+    }
+
+    public function getCustomerId()
+    {
+        return $this->getParameter('customerId');
+    }
+
+    public function getRedirectErrorMessage()
+    {
+        return $this->getParameter('redirectErrorMessage');
+    }
+
+    public function setRedirectErrorMessage($value)
+    {
+        return $this->setParameter('redirectErrorMessage', $value);
+    }
+
+    public function getRedirectErrorTimeout()
+    {
+        return $this->getParameter('redirectErrorTimeout');
+    }
+
+    public function setRedirectErrorTimeout($value)
+    {
+        return $this->setParameter('redirectErrorTimeout', $value);
+    }
+
+    public function getRedirectSuccessMessage()
+    {
+        return $this->getParameter('redirectSuccessMessage');
+    }
+
+    public function setRedirectSuccessMessage($value)
+    {
+        return $this->setParameter('redirectSuccessMessage', $value);
+    }
+
+    public function getRedirectSuccessTimeout()
+    {
+        return $this->getParameter('redirectSuccessTimeout');
+    }
+
+    public function setRedirectSuccessTimeout($value)
+    {
+        return $this->setParameter('redirectSuccessTimeout', $value);
+    }
+
+    public function getShopName()
+    {
+        return $this->getParameter('shopName');
+    }
+
+    public function setShopName($value)
+    {
+        return $this->setParameter('shopName', $value);
+    }
+
+    public function getShopUrl()
+    {
+        return $this->getParameter('shopUrl');
+    }
+
+    public function setShopUrl($value)
+    {
+        return $this->setParameter('shopUrl', $value);
     }
 
     public function setUuid($value)
