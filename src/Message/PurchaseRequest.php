@@ -32,12 +32,30 @@ class PurchaseRequest extends AbstractRequest
         $data['vads_url_cancel'] = $this->getCancelUrl();
         $data['vads_url_error'] = $this->getErrorUrl();
         $data['vads_url_refused'] = $this->getRefusedUrl();
+        $data['vads_url_check'] = $this->getCheckUrl();
+        $data['vads_url_return'] = $this->getReturnUrl();
+        $data['vads_return_mode'] = $this->getReturnMode();
         $data['vads_order_id'] = $this->getOrderId();
+        $data['vads_order_info'] = $this->getOrderInfo();
+        $data['vads_order_info2'] = $this->getOrderInfo2();
+        $data['vads_order_info3'] = $this->getOrderInfo3();
+        $data['vads_cust_id'] = $this->getCustomerId();
         $data['vads_payment_cards'] = $this->getPaymentCards();
+        $data['vads_redirect_error_message'] = $this->getRedirectErrorMessage();
+        $data['vads_redirect_error_timeout'] = $this->getRedirectErrorTimeout();
+        $data['vads_redirect_success_message'] = $this->getRedirectSuccessMessage();
+        $data['vads_redirect_success_timeout'] = $this->getRedirectSuccessTimeout();
+        $data['vads_shop_name'] = $this->getShopName();
+        $data['vads_shop_url'] = $this->getShopUrl();
 
         // Customer infos
         if ($this->getCard()) {
-            $data['vads_cust_first_name'] = $this->getCard()->getName();
+            if (!$this->getCard()->getFirstName()) {
+                $data['vads_cust_first_name'] = $this->getCard()->getName();
+            } else {
+                $data['vads_cust_first_name'] = $this->getCard()->getFirstName();
+                $data['vads_cust_last_name'] = $this->getCard()->getLastName();
+            }
             $data['vads_cust_address'] = $this->getCard()->getAddress1();
             $data['vads_cust_city'] = $this->getCard()->getCity();
             $data['vads_cust_state'] = $this->getCard()->getState();
@@ -50,8 +68,6 @@ class PurchaseRequest extends AbstractRequest
         /*
 
         // Order infos
-        $data['vads_order_id'] = 1;
-        $data['vads_order_info'] = 'Order description';
         $data['vads_nb_products'] = 1;
         // For each product
         $data['vads_product_label0'] = 1;
@@ -60,10 +76,6 @@ class PurchaseRequest extends AbstractRequest
         $data['vads_product_ref0'] = 1;
         $data['vads_product_qty0'] = 1;
         $data['vads_product_vat0'] = 1;
-
-        $data['vads_url_return'] = 'http://mywebsite.com/return';
-        $data['vads_return_mode'] = 'POST';
-
         */
 
         $data['signature'] = $this->generateSignature($data);
