@@ -48,17 +48,21 @@ class PurchaseRequestTest extends TestCase
         $this->assertSame('http://cancel', $data['vads_url_cancel']);
         $this->assertSame('http://error', $data['vads_url_error']);
         $this->assertSame('http://refused', $data['vads_url_refused']);
-        $this->assertSame('aded095acd32a157a501c63986ac83e3fca0f377', $data['signature']);
+        $this->assertSame('2e8566261b46ea6081859a7af0ada9e1578debb8', $data['signature']);
     }
 
     public function testGetDataWithCustomData()
     {
-        $this->request->setPaymentConfig('MULTIPLE');
-        $this->request->setPageAction('ASK_REGISTER_PAY');
+        $this->request->setPaymentConfig(AbstractRequest::PAYMENT_CONFIG_MULTIPLE);
+        $this->request->setPageAction(AbstractRequest::PAGE_ACTION_ASK_REGISTER_PAY);
+        $this->request->setIdentifier('123456');
+        $this->request->setIdentifierStatus(AbstractRequest::IDENTIFIER_STATUS_CREATED);
 
         $data = $this->request->getData();
 
-        $this->assertSame('MULTIPLE', $data['vads_payment_config']);
-        $this->assertSame('ASK_REGISTER_PAY', $data['vads_page_action']);
+        $this->assertSame(AbstractRequest::PAYMENT_CONFIG_MULTIPLE, $data['vads_payment_config']);
+        $this->assertSame(AbstractRequest::PAGE_ACTION_ASK_REGISTER_PAY, $data['vads_page_action']);
+        $this->assertSame('123456', $data['vads_identifier']);
+        $this->assertSame(AbstractRequest::IDENTIFIER_STATUS_CREATED, $data['vads_identifier_status']);
     }
 }

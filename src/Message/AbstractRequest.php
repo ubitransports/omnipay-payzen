@@ -13,6 +13,12 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
     const PAGE_ACTION_PAYMENT = 'PAYMENT';
     const PAGE_ACTION_ASK_REGISTER_PAY = 'ASK_REGISTER_PAY';
 
+    const IDENTIFIER_STATUS_CREATED = 'CREATED';
+    const IDENTIFIER_STATUS_NOT_CREATED = 'NOT_CREATED';
+    const IDENTIFIER_STATUS_UPDATED = 'UPDATED';
+    const IDENTIFIER_STATUS_NOT_UPDATED = 'NOT_UPDATED';
+    const IDENTIFIER_STATUS_ABANDONED = 'ABANDONED';
+
     public function getMerchantId()
     {
         return $this->getParameter('merchantId');
@@ -121,6 +127,26 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
     public function setPageAction($value)
     {
         $this->setParameter('pageAction', $value);
+    }
+
+    public function getIdentifierStatus()
+    {
+        return $this->getParameter('identifierStatus');
+    }
+
+    public function setIdentifierStatus($value)
+    {
+        $this->setParameter('identifierStatus', $value);
+    }
+
+    public function getIdentifier()
+    {
+        return $this->getParameter('identifier');
+    }
+
+    public function setIdentifier($value)
+    {
+        $this->setParameter('identifier', $value);
     }
 
     public function setPaymentCards($value)

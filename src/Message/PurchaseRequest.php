@@ -24,6 +24,8 @@ class PurchaseRequest extends AbstractRequest
         $data['vads_currency'] = $this->getCurrencyNumeric();
         $data['vads_action_mode'] = 'INTERACTIVE';
         $data['vads_page_action'] = $this->getPageAction() ?: self::PAGE_ACTION_PAYMENT;
+        $data['vads_identifier'] = $this->getIdentifier();
+        $data['vads_identifier_status'] = $this->getIdentifierStatus();
         $data['vads_version'] = 'V2';
         $data['vads_payment_config'] = $this->getPaymentConfig() ?: self::PAYMENT_CONFIG_SINGLE;
         $data['vads_capture_delay'] = 0;
