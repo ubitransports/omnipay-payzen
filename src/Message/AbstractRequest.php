@@ -10,6 +10,9 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
     const PAYMENT_CONFIG_SINGLE = 'SINGLE';
     const PAYMENT_CONFIG_MULTIPLE = 'MULTIPLE';
 
+    const PAGE_ACTION_PAYMENT = 'PAYMENT';
+    const PAGE_ACTION_ASK_REGISTER_PAY = 'ASK_REGISTER_PAY';
+
     public function getMerchantId()
     {
         return $this->getParameter('merchantId');
@@ -108,6 +111,16 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
     public function setReturnMode($value)
     {
         return $this->setParameter('returnMode', $value);
+    }
+
+    public function getPageAction()
+    {
+        return $this->getParameter('pageAction');
+    }
+
+    public function setPageAction($value)
+    {
+        $this->setParameter('pageAction', $value);
     }
 
     public function setPaymentCards($value)

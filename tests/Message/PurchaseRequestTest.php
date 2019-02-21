@@ -50,4 +50,15 @@ class PurchaseRequestTest extends TestCase
         $this->assertSame('http://refused', $data['vads_url_refused']);
         $this->assertSame('aded095acd32a157a501c63986ac83e3fca0f377', $data['signature']);
     }
+
+    public function testGetDataWithCustomData()
+    {
+        $this->request->setPaymentConfig('MULTIPLE');
+        $this->request->setPageAction('ASK_REGISTER_PAY');
+
+        $data = $this->request->getData();
+
+        $this->assertSame('MULTIPLE', $data['vads_payment_config']);
+        $this->assertSame('ASK_REGISTER_PAY', $data['vads_page_action']);
+    }
 }
