@@ -43,6 +43,10 @@ class PurchaseRequest extends AbstractRequest
             $data['vads_cust_email'] = $this->getCard()->getEmail();
         }
 
+        if ($this->hasCardReference()) {
+            $data['vads_identifier'] = $this->getCardReference();
+        }
+
         $data['signature'] = $this->generateSignature($data);
 
         return $data;
@@ -61,6 +65,21 @@ class PurchaseRequest extends AbstractRequest
     public function isCreatingCard()
     {
         return true === $this->getParameter('createCard', false);
+    }
+
+    public function setCardReference($value)
+    {
+        return $this->setParameter('cardReference', $value);
+    }
+
+    public function getCardReference()
+    {
+        return $this->getParameter('cardReference');
+    }
+
+    public function hasCardReference()
+    {
+        return null !== $this->getCardReference();
     }
 
     private function guessPageAction()
