@@ -48,4 +48,20 @@ class CompletePurchaseResponse extends AbstractResponse
     {
         return isset($this->data['vads_trans_uuid']) ? $this->data['vads_trans_uuid'] : null;
     }
+
+    public function hasCreatedCard()
+    {
+        if (isset($this->data['vads_identifier_status'])
+            && 'CREATED' ===  $this->data['vads_identifier_status']
+        ) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public function getCardReference()
+    {
+        return isset($this->data['vads_identifier']) ? $this->data['vads_identifier'] : null;
+    }
 }

@@ -19,6 +19,7 @@ class GatewayTest extends GatewayTestCase
 
         $this->assertInstanceOf('Omnipay\PayZen\Message\PurchaseRequest', $request);
         $this->assertSame('1000', $request->getAmount());
+        $this->assertSame('PAYMENT', $request->getData()['vads_page_action']);
     }
 
     public function testCompletePurchase()
@@ -29,4 +30,11 @@ class GatewayTest extends GatewayTestCase
         $this->assertSame('1000', $request->getAmount());
     }
 
+    public function testPurchaseCreatingCard()
+    {
+        $request = $this->gateway->purchase(array('amount' => '10.00', 'createCard' => true));
+
+        $this->assertInstanceOf('Omnipay\PayZen\Message\PurchaseRequest', $request);
+        $this->assertSame('REGISTER_PAY', $request->getData()['vads_page_action']);
+    }
 }
