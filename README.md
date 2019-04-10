@@ -36,6 +36,55 @@ The following gateways are provided by this package:
 For general usage instructions, please see the main [Omnipay](https://github.com/omnipay/omnipay)
 repository.
 
+### Advanced Usage
+
+#### Saving Cards
+
+##### Creating a token during payment
+
+```php
+$paymentParams = array(
+    ...
+    'createCard' => true,
+));
+$purchaseRequest = $gateway->purchase($paymentParams);
+$redirectResponse = $purchaseRequest->send();
+```
+
+##### Creating a token without payment
+
+```php
+$paymentParams = array(
+    ...
+));
+$createCardRequest = $gateway->createCard($paymentParams);
+$redirectResponse = $createCardRequest->send();
+```
+
+##### Retrieve a token in the purchase payzen callback reponse
+
+```php
+$paymentParams = array(
+    ...
+));
+$completePurchaseRequest = $gateway->completePurchase($paymentParams);
+$callbackResponse = $completePurchaseRequest->send();
+if ($callbackResponse->hasCreatedCard()) {
+    $cardReference = $callbackResponse->getCardReference();
+}
+```
+
+#### Paying using saved Cards
+
+```php
+$paymentParams = array(
+    ...
+    'cardReference' => 'XXXXXXXXXX',
+));
+$purchaseRequest = $gateway->purchase($paymentParams);
+$redirectResponse = $purchaseRequest->send();
+```
+
 ## Support
 
 If you are having general issues with Omnipay, we suggest posting on
