@@ -54,7 +54,7 @@ class PurchaseRequest extends AbstractRequest
 
     public function sendData($data)
     {
-        return $this->response = new PurchaseResponse($this, $data);
+        return $this->response = new PaymentRedirectResponse($this, $data);
     }
 
     public function setCreateCard($value)

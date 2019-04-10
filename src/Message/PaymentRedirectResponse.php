@@ -5,10 +5,7 @@ namespace Omnipay\PayZen\Message;
 use Omnipay\Common\Message\AbstractResponse;
 use Omnipay\Common\Message\RedirectResponseInterface;
 
-/**
- * PayZen Purchase Response
- */
-class PurchaseResponse extends AbstractResponse implements RedirectResponseInterface
+class PaymentRedirectResponse extends AbstractResponse implements RedirectResponseInterface
 {
     public $liveEndpoint = 'https://secure.payzen.eu/vads-payment/';
 
