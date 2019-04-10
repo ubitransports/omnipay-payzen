@@ -43,4 +43,9 @@ class Gateway extends AbstractGateway
     {
         return $this->createRequest('\Omnipay\PayZen\Message\CompletePurchaseRequest', $parameters);
     }
+
+    public function createCard(array $parameters = array())
+    {
+        return $this->createRequest('\Omnipay\PayZen\Message\CreateCardRequest', $parameters);
+    }
 }

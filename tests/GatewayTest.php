@@ -48,4 +48,12 @@ class GatewayTest extends GatewayTestCase
         $this->assertSame('PAYMENT', $request->getData()['vads_page_action']);
         $this->assertSame('a card reference', $request->getData()['vads_identifier']);
     }
+
+    public function testCreateCard()
+    {
+        $request = $this->gateway->createCard(array());
+
+        $this->assertInstanceOf('Omnipay\PayZen\Message\CreateCardRequest', $request);
+        $this->assertSame('REGISTER', $request->getData()['vads_page_action']);
+    }
 }
