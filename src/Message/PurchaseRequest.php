@@ -19,7 +19,7 @@ class PurchaseRequest extends AbstractRequest
         $data['vads_amount'] = $this->getAmount();
         $data['vads_currency'] = $this->getCurrencyNumeric();
         $data['vads_action_mode'] = 'INTERACTIVE';
-        $data['vads_page_action'] = $this->guessPageAction();
+        $data['vads_page_action'] = $this->resolvePageAction();
         $data['vads_version'] = 'V2';
         $data['vads_payment_config'] = 'SINGLE';
         $data['vads_capture_delay'] = 0;
@@ -82,7 +82,7 @@ class PurchaseRequest extends AbstractRequest
         return null !== $this->getCardReference();
     }
 
-    private function guessPageAction()
+    private function resolvePageAction()
     {
         if ($this->isCreatingCard()) {
             return 'REGISTER_PAY';
