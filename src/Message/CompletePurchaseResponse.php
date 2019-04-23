@@ -64,4 +64,28 @@ class CompletePurchaseResponse extends AbstractResponse
     {
         return isset($this->data['vads_identifier']) ? $this->data['vads_identifier'] : null;
     }
+
+    public function getCardNumber()
+    {
+        return isset($this->data['vads_card_number']) ? $this->data['vads_card_number'] : null;
+    }
+
+    public function getCardExpiryDate()
+    {
+        if (!isset($this->__data['vads_expiry_year'])
+            || !isset($this->__data['vads_expiry_month'])
+        ) {
+            return null;
+        }
+
+        return \DateTime::createFromFormat(
+            'Y-m',
+            sprintf('%s-%s', $this->__data['vads_expiry_year'], $this->__data['vads_expiry_month'])
+        );
+    }
+
+    public function getCardBrand()
+    {
+        return isset($this->data['vads_card_brand']) ? $this->data['vads_card_brand'] : null;
+    }
 }
