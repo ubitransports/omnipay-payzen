@@ -7,8 +7,10 @@ use Omnipay\Common\Message\AbstractResponse;
 /**
  * PayZen Complete Purchase Response
  */
-class CompletePurchaseResponse extends AbstractResponse
+class CompletePurchaseResponse extends AbstractResponse implements CardCreationResponseInterface
 {
+    use GetCardInformationTrait;
+
     public function isSuccessful()
     {
         return $this->getTransactionStatus() == 'AUTHORISED';
@@ -47,45 +49,5 @@ class CompletePurchaseResponse extends AbstractResponse
     public function getUuid()
     {
         return isset($this->data['vads_trans_uuid']) ? $this->data['vads_trans_uuid'] : null;
-    }
-
-    public function hasCreatedCard()
-    {
-        if (isset($this->data['vads_identifier_status'])
-            && 'CREATED' ===  $this->data['vads_identifier_status']
-        ) {
-            return true;
-        }
-
-        return false;
-    }
-
-    public function getCardReference()
-    {
-        return isset($this->data['vads_identifier']) ? $this->data['vads_identifier'] : null;
-    }
-
-    public function getCardNumber()
-    {
-        return isset($this->data['vads_card_number']) ? $this->data['vads_card_number'] : null;
-    }
-
-    public function getCardExpiryDate()
-    {
-        if (!isset($this->__data['vads_expiry_year'])
-            || !isset($this->__data['vads_expiry_month'])
-        ) {
-            return null;
-        }
-
-        return \DateTime::createFromFormat(
-            'Y-m',
-            sprintf('%s-%s', $this->__data['vads_expiry_year'], $this->__data['vads_expiry_month'])
-        );
-    }
-
-    public function getCardBrand()
-    {
-        return isset($this->data['vads_card_brand']) ? $this->data['vads_card_brand'] : null;
     }
 }
