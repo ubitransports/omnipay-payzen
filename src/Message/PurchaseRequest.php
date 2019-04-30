@@ -84,7 +84,9 @@ class PurchaseRequest extends AbstractRequest
 
     private function resolvePageAction()
     {
-        if ($this->isCreatingCard()) {
+        if ($this->isCreatingCard()
+            && false === $this->hasCardReference()
+        ) {
             return 'REGISTER_PAY';
         }
 
