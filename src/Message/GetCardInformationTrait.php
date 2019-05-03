@@ -57,4 +57,12 @@ trait GetCardInformationTrait
     {
         return isset($this->data['vads_card_brand']) ? $this->data['vads_card_brand'] : null;
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function getOwnerReference()
+    {
+        return isset($this->data['vads_ext_info_owner_reference']) ? $this->data['vads_ext_info_owner_reference'] : null;
+    }
 }

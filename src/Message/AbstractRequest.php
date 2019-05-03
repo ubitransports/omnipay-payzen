@@ -108,6 +108,16 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
         return $this->setParameter('vads_trans_uuid');
     }
 
+    public function setOwnerReference($value)
+    {
+        return $this->setParameter('ownerReference', $value);
+    }
+
+    public function getOwnerReference()
+    {
+        return $this->getParameter('ownerReference');
+    }
+
     public function formatCurrency($amount)
     {
         return (string) intval(strval($amount * 100));

@@ -28,4 +28,9 @@ interface CardCreationResponseInterface
      * @return string|null
      */
     public function getCardBrand();
+
+    /**
+     * @return string|null
+     */
+    public function getOwnerReference();
 }

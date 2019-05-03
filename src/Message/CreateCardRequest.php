@@ -21,6 +21,7 @@ class CreateCardRequest extends AbstractRequest
         $data['vads_url_success'] = $this->getSuccessUrl();
         $data['vads_validation_mode'] = 0;
         $data['vads_version'] = 'V2';
+        $data['vads_ext_info_owner_reference'] = $this->getOwnerReference();
 
         if ($this->getCard()) {
             $data['vads_cust_address'] = $this->getCard()->getAddress1();
