@@ -15,6 +15,7 @@ class CreateCardRequest extends AbstractRequest
         $data['vads_site_id'] = $this->getMerchantId();
         $data['vads_trans_date'] = $this->getTransactionDate();
         $data['vads_url_cancel'] = $this->getCancelUrl();
+        $data['vads_url_check'] = $this->getNotifyUrl();
         $data['vads_url_error'] = $this->getErrorUrl();
         $data['vads_url_refused'] = $this->getRefusedUrl();
         $data['vads_url_success'] = $this->getSuccessUrl();
