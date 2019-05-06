@@ -48,7 +48,7 @@ class PurchaseRequestTest extends TestCase
         $this->assertSame('http://cancel', $data['vads_url_cancel']);
         $this->assertSame('http://error', $data['vads_url_error']);
         $this->assertSame('http://refused', $data['vads_url_refused']);
-        $this->assertSame('1e44c55b059db1b4d1b704d0bcede1fc273add9b', $data['signature']);
+        $this->assertSame('e12cdfc3a121c7f49446bab00c98d2072da98633', $data['signature']);
     }
 
     public function testGetRegisterPayData()
@@ -86,7 +86,7 @@ class PurchaseRequestTest extends TestCase
         $this->assertSame('http://cancel', $data['vads_url_cancel']);
         $this->assertSame('http://error', $data['vads_url_error']);
         $this->assertSame('http://refused', $data['vads_url_refused']);
-        $this->assertSame('6d56309c59fffb36246fcd95a2de4f2cae611a19', $data['signature']);
+        $this->assertSame('1949ddd276ffb6b29ebbd2dbc888295ea0896491', $data['signature']);
     }
 
     public function testGetRegisterPayWithCardReferenceData()
@@ -125,6 +125,6 @@ class PurchaseRequestTest extends TestCase
         $this->assertSame('http://cancel', $data['vads_url_cancel']);
         $this->assertSame('http://error', $data['vads_url_error']);
         $this->assertSame('http://refused', $data['vads_url_refused']);
-        $this->assertSame('177ad677db363818e6fbf9f3bf13b7c977648a77', $data['signature']);
+        $this->assertSame('42180e7e0ef0059611357609f3ae164099c55af7', $data['signature']);
     }
 }
