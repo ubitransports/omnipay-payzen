@@ -68,6 +68,7 @@ class PurchaseRequestTest extends TestCase
             'refusedUrl' => 'http://refused',
             'notifyUrl' => 'http://notify',
             'createCard' => true,
+            'ownerReference' => 'a owner reference',
         ));
         $data = $this->request->getData();
 
@@ -86,7 +87,8 @@ class PurchaseRequestTest extends TestCase
         $this->assertSame('http://cancel', $data['vads_url_cancel']);
         $this->assertSame('http://error', $data['vads_url_error']);
         $this->assertSame('http://refused', $data['vads_url_refused']);
-        $this->assertSame('1949ddd276ffb6b29ebbd2dbc888295ea0896491', $data['signature']);
+        $this->assertSame('7eeb7f33a7fe5631b5327c26118b50a5d04880ee', $data['signature']);
+        $this->assertSame('a owner reference', $data['vads_ext_info_owner_reference']);
     }
 
     public function testGetRegisterPayWithCardReferenceData()
