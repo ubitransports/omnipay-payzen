@@ -46,6 +46,7 @@ repository.
 $paymentParams = array(
     ...
     'createCard' => true,
+    'ownerReference' => 'an owner reference',
 ));
 $purchaseRequest = $gateway->purchase($paymentParams);
 $redirectResponse = $purchaseRequest->send();
@@ -56,6 +57,7 @@ $redirectResponse = $purchaseRequest->send();
 ```php
 $paymentParams = array(
     ...
+    'ownerReference' => 'an owner reference',
 ));
 $createCardRequest = $gateway->createCard($paymentParams);
 $redirectResponse = $createCardRequest->send();
@@ -71,6 +73,7 @@ $completePurchaseRequest = $gateway->completePurchase($paymentParams);
 $callbackResponse = $completePurchaseRequest->send();
 if ($callbackResponse->hasCreatedCard()) {
     $cardReference = $callbackResponse->getCardReference();
+    $ownerReference = $callbackResponse->getOwnerReference();
 }
 ```
 
