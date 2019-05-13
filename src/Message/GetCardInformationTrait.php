@@ -63,6 +63,9 @@ trait GetCardInformationTrait
      */
     public function getOwnerReference()
     {
-        return isset($this->data['vads_ext_info_owner_reference']) ? $this->data['vads_ext_info_owner_reference'] : null;
+        return isset($this->data['vads_ext_info_owner_reference'])
+            ? $this->data['vads_ext_info_owner_reference']
+            : null
+        ;
     }
 }
