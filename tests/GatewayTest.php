@@ -19,6 +19,8 @@ class GatewayTest extends GatewayTestCase
 
         $this->assertInstanceOf('Omnipay\PayZen\Message\PurchaseRequest', $request);
         $this->assertSame('1000', $request->getAmount());
+        $this->assertSame('PAYMENT', $request->getData()['vads_page_action']);
+        $this->assertArrayNotHasKey('vads_identifier', $request->getData());
     }
 
     public function testCompletePurchase()
@@ -29,4 +31,29 @@ class GatewayTest extends GatewayTestCase
         $this->assertSame('1000', $request->getAmount());
     }
 
+    public function testPurchaseCreatingCard()
+    {
+        $request = $this->gateway->purchase(array('amount' => '10.00', 'createCard' => true));
+
+        $this->assertInstanceOf('Omnipay\PayZen\Message\PurchaseRequest', $request);
+        $this->assertSame('REGISTER_PAY', $request->getData()['vads_page_action']);
+        $this->assertArrayNotHasKey('vads_identifier', $request->getData());
+    }
+
+    public function testPurchaseByCardReference()
+    {
+        $request = $this->gateway->purchase(array('amount' => '10.00', 'cardReference' => 'a card reference'));
+
+        $this->assertInstanceOf('Omnipay\PayZen\Message\PurchaseRequest', $request);
+        $this->assertSame('PAYMENT', $request->getData()['vads_page_action']);
+        $this->assertSame('a card reference', $request->getData()['vads_identifier']);
+    }
+
+    public function testCreateCard()
+    {
+        $request = $this->gateway->createCard(array());
+
+        $this->assertInstanceOf('Omnipay\PayZen\Message\CreateCardRequest', $request);
+        $this->assertSame('REGISTER', $request->getData()['vads_page_action']);
+    }
 }

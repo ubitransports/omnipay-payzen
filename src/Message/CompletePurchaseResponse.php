@@ -7,8 +7,10 @@ use Omnipay\Common\Message\AbstractResponse;
 /**
  * PayZen Complete Purchase Response
  */
-class CompletePurchaseResponse extends AbstractResponse
+class CompletePurchaseResponse extends AbstractResponse implements CardCreationResponseInterface
 {
+    use GetCardInformationTrait;
+
     public function isSuccessful()
     {
         return $this->getTransactionStatus() == 'AUTHORISED';

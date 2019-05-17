@@ -7,10 +7,6 @@ namespace Omnipay\PayZen\Message;
  */
 class PurchaseRequest extends AbstractRequest
 {
-
-    /**
-     *
-     */
     public function getData()
     {
         $this->validate('amount');
@@ -23,7 +19,7 @@ class PurchaseRequest extends AbstractRequest
         $data['vads_amount'] = $this->getAmount();
         $data['vads_currency'] = $this->getCurrencyNumeric();
         $data['vads_action_mode'] = 'INTERACTIVE';
-        $data['vads_page_action'] = 'PAYMENT';
+        $data['vads_page_action'] = $this->resolvePageAction();
         $data['vads_version'] = 'V2';
         $data['vads_payment_config'] = 'SINGLE';
         $data['vads_capture_delay'] = 0;
@@ -34,6 +30,8 @@ class PurchaseRequest extends AbstractRequest
         $data['vads_url_refused'] = $this->getRefusedUrl();
         $data['vads_order_id'] = $this->getOrderId();
         $data['vads_payment_cards'] = $this->getPaymentCards();
+        $data['vads_url_check'] = $this->getNotifyUrl();
+        $data['vads_ext_info_owner_reference'] = $this->getOwnerReference();
 
         // Customer infos
         if ($this->getCard()) {
@@ -47,24 +45,9 @@ class PurchaseRequest extends AbstractRequest
             $data['vads_cust_email'] = $this->getCard()->getEmail();
         }
 
-        /*
-
-        // Order infos
-        $data['vads_order_id'] = 1;
-        $data['vads_order_info'] = 'Order description';
-        $data['vads_nb_products'] = 1;
-        // For each product
-        $data['vads_product_label0'] = 1;
-        $data['vads_product_amount0'] = 1;
-        $data['vads_product_type0'] = 'TRAVEL';
-        $data['vads_product_ref0'] = 1;
-        $data['vads_product_qty0'] = 1;
-        $data['vads_product_vat0'] = 1;
-
-        $data['vads_url_return'] = 'http://mywebsite.com/return';
-        $data['vads_return_mode'] = 'POST';
-
-        */
+        if ($this->hasCardReference()) {
+            $data['vads_identifier'] = $this->getCardReference();
+        }
 
         $data['signature'] = $this->generateSignature($data);
 
@@ -73,6 +56,42 @@ class PurchaseRequest extends AbstractRequest
 
     public function sendData($data)
     {
-        return $this->response = new PurchaseResponse($this, $data);
+        return $this->response = new RedirectToGatewayResponse($this, $data);
+    }
+
+    public function setCreateCard($value)
+    {
+        return $this->setParameter('createCard', $value);
+    }
+
+    public function isCreatingCard()
+    {
+        return true === $this->getParameter('createCard', false);
+    }
+
+    public function setCardReference($value)
+    {
+        return $this->setParameter('cardReference', $value);
+    }
+
+    public function getCardReference()
+    {
+        return $this->getParameter('cardReference');
+    }
+
+    public function hasCardReference()
+    {
+        return null !== $this->getCardReference();
+    }
+
+    private function resolvePageAction()
+    {
+        if ($this->isCreatingCard()
+            && false === $this->hasCardReference()
+        ) {
+            return 'REGISTER_PAY';
+        }
+
+        return 'PAYMENT';
     }
 }
