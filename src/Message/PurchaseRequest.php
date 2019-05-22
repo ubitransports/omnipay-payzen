@@ -30,8 +30,11 @@ class PurchaseRequest extends AbstractRequest
         $data['vads_url_refused'] = $this->getRefusedUrl();
         $data['vads_order_id'] = $this->getOrderId();
         $data['vads_payment_cards'] = $this->getPaymentCards();
-        $data['vads_url_check'] = $this->getNotifyUrl();
         $data['vads_ext_info_owner_reference'] = $this->getOwnerReference();
+
+        if (null !== $this->getNotifyUrl()) {
+            $data['vads_url_check'] = $this->getNotifyUrl();
+        }
 
         // Customer infos
         if ($this->getCard()) {
