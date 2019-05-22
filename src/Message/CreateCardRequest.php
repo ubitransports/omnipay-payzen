@@ -15,13 +15,16 @@ class CreateCardRequest extends AbstractRequest
         $data['vads_site_id'] = $this->getMerchantId();
         $data['vads_trans_date'] = $this->getTransactionDate();
         $data['vads_url_cancel'] = $this->getCancelUrl();
-        $data['vads_url_check'] = $this->getNotifyUrl();
         $data['vads_url_error'] = $this->getErrorUrl();
         $data['vads_url_refused'] = $this->getRefusedUrl();
         $data['vads_url_success'] = $this->getSuccessUrl();
         $data['vads_validation_mode'] = 0;
         $data['vads_version'] = 'V2';
         $data['vads_ext_info_owner_reference'] = $this->getOwnerReference();
+
+        if (null !== $this->getNotifyUrl()) {
+            $data['vads_url_check'] = $this->getNotifyUrl();
+        }
 
         if ($this->getCard()) {
             $data['vads_cust_address'] = $this->getCard()->getAddress1();
