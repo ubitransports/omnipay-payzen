@@ -45,9 +45,11 @@ trait GetCardInformationTrait
             return null;
         }
 
-        return new \DateTime(
+        $beginningOfMonth = new \DateTime(
             sprintf('%s-%s', $this->data['vads_expiry_year'], $this->data['vads_expiry_month'])
         );
+
+        return $beginningOfMonth->modify('last day of this month');
     }
 
     /**
