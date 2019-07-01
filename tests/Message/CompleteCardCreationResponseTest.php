@@ -11,7 +11,7 @@ class CompleteCardCreationResponseTest extends TestCase
         $identifier = 'asuperidentifier';
         $cardNumber = 'asupercardnumber';
         $cardBrand = 'CB';
-        $expireAt = new \DateTime('2048-06');
+        $expireAt = new \DateTime('2048-06-30');
         $response = new CompleteCardCreationResponse($this->getMockRequest(), array(
             'signature' => '3132f1e451075f2408cda41f2e647e9b4747d421',
             'vads_amount' => '0',
