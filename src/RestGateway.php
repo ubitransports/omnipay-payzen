@@ -5,11 +5,11 @@ use Omnipay\Common\AbstractGateway;
 use Omnipay\Common\Message\RequestInterface;
 
 /**
- * PayZen Rest Gateway
+ * PayZen Rest RestGateway
  *
  * @license http://opensource.org/licenses/mit-license.php MIT
  */
-class Gateway extends AbstractGateway
+class RestGateway extends AbstractGateway
 {
     /**
      * @return string
