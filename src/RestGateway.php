@@ -27,6 +27,7 @@ class RestGateway extends AbstractGateway
         return [
             'username' => '',
             'password' => '',
+            'testPassword' => '',
             'testMode' => false,
         ];
     }
@@ -42,18 +43,37 @@ class RestGateway extends AbstractGateway
 
     /**
      * @param string
+     * @return self
      */
     public function setUsername($value)
     {
-        $this->setParameter('username', $value);
+        return $this->setParameter('username', $value);
+    }
+
+    /**
+     * @return self
+     */
+    public function getUsername()
+    {
+        return $this->getParameter('username');
     }
 
     /**
      * @param string
+     * @return self
      */
     public function setPassword($value)
     {
-        $this->setParameter('password', $value);
+        return $this->setParameter('password', $value);
+    }
+
+    /**
+     * @return string
+     * @return self
+     */
+    public function getPassword()
+    {
+        return $this->getParameter('password');
     }
 
     /**
@@ -61,6 +81,14 @@ class RestGateway extends AbstractGateway
      */
     public function setTestPassword($value)
     {
-        $this->setParameter('testPassword', $value);
+        return $this->setParameter('testPassword', $value);
+    }
+
+    /**
+     * @return string
+     */
+    public function getTestPassword()
+    {
+        return $this->getParameter('testPassword');
     }
 }

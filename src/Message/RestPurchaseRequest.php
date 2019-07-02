@@ -8,13 +8,16 @@ class RestPurchaseRequest extends AbstractRestRequest
      */
     public function getData()
     {
-        $this->validate('amount');
+        $this->validate('amount', 'currency');
 
         $data = [
             'amount' => $this->getAmountInteger(),
             'currency' => $this->getCurrency(),
             'orderId' => $this->getTransactionId(),
-            'customer' => [
+        ];
+
+        if ($this->getCard()) {
+            $data['customer'] = [
                 'email' => $this->getCard()->getEmail(),
                 'reference' => '', //passenger id ?
                 'billingDetails' => [
@@ -28,15 +31,32 @@ class RestPurchaseRequest extends AbstractRestRequest
                     'country' => $this->getCard()->getBillingCountry(),
                     'phoneNumber' => $this->getCard()->getBillingPhone(),
                 ]
-            ],
-        ];
+            ];
+        }
 
-        if ($this->hasPaymentToken()) {
-            $data['paymentMethodToken'] = $this->getPaymentToken();
-            $data['formAction'] = 'SILENT';
+        if ($this->getCardReference()) {
+            $data['paymentMethodToken'] = $this->getCardReference();
+        }
+
+        if ($this->getFormType()) {
+            $data['formAction'] = $this->getFormType();
         }
 
         return $data;
+    }
+
+    public function getFormType()
+    {
+        if ($this->getParameter('withForm')) {
+            return 'PAYMENT';
+        }
+
+        return 'SILENT';
+    }
+
+    public function getCardReference()
+    {
+        return $this->getParameter('cardReference');
     }
 
     /**

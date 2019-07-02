@@ -61,6 +61,14 @@ abstract class AbstractRestRequest extends AbstractRequest
     /**
      * @return string
      */
+    public function setUsername($value)
+    {
+        return $this->setParameter('username', $value);
+    }
+
+    /**
+     * @return string
+     */
     public function getUsername()
     {
         return $this->getParameter('username');
@@ -69,9 +77,25 @@ abstract class AbstractRestRequest extends AbstractRequest
     /**
      * @return string
      */
+    public function setPassword($value)
+    {
+        return $this->setParameter('password', $value);
+    }
+
+    /**
+     * @return string
+     */
     public function getPassword()
     {
         return $this->getParameter('password');
+    }
+
+    /**
+     * @return string
+     */
+    public function setTestPassword($value)
+    {
+        return $this->setParameter('testPassword', $value);
     }
 
     /**
