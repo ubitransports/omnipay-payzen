@@ -1,5 +1,5 @@
 <?php
-namespace Omnipay\Payzen\Message;
+namespace Omnipay\PayZen\Message;
 
 use Omnipay\Common\Message\AbstractResponse;
 use Omnipay\Common\Message\RequestInterface;

@@ -37,7 +37,7 @@ class RestGateway extends AbstractGateway
      */
     public function purchase(array $parameters = [])
     {
-        return $this->createRequest('\Omnipay\Payzen\Message\RestPurchaseRequest', $parameters);
+        return $this->createRequest('\Omnipay\PayZen\Message\RestPurchaseRequest', $parameters);
     }
 
     /**

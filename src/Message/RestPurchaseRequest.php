@@ -1,5 +1,5 @@
 <?php
-namespace Omnipay\Payzen\Message;
+namespace Omnipay\PayZen\Message;
 
 class RestPurchaseRequest extends AbstractRestRequest
 {
