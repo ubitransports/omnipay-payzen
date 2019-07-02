@@ -69,14 +69,6 @@ abstract class AbstractRestRequest extends AbstractRequest
     /**
      * @return string
      */
-    public function getTestUsername()
-    {
-        return $this->getParameter('testUsername');
-    }
-
-    /**
-     * @return string
-     */
     public function getPassword()
     {
         return $this->getParameter('password');
@@ -134,7 +126,6 @@ abstract class AbstractRestRequest extends AbstractRequest
         $username = $this->getUsername();
         $password = $this->getPassword();
         if ($this->getTestMode()) {
-            $username = $this->getTestUsername();
             $password = $this->getTestPassword();
         }
 

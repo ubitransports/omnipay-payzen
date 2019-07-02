@@ -51,14 +51,6 @@ class RestGateway extends AbstractGateway
     /**
      * @param string
      */
-    public function setTestUsername($value)
-    {
-        $this->setParameter('testUsername', $value);
-    }
-
-    /**
-     * @param string
-     */
     public function setPassword($value)
     {
         $this->setParameter('password', $value);
