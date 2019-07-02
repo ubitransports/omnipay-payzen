@@ -1,4 +1,6 @@
 <?php
+namespace Omnipay\Payzen\Message;
+
 use Omnipay\Common\Message\AbstractRequest;
 use Omnipay\Common\Exception\InvalidResponseException;
 use Omnipay\Common\Message\ResponseInterface;
