@@ -47,7 +47,7 @@ class RestPurchaseRequest extends AbstractRestRequest
 
     public function getFormType()
     {
-        if ($this->getParameter('withForm')) {
+        if (!$this->hasParameter('withForm') || $this->getWithForm()) {
             return 'PAYMENT';
         }
 

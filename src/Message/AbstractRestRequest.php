@@ -159,4 +159,30 @@ abstract class AbstractRestRequest extends AbstractRequest
             $password
         ));
     }
+
+    /**
+     * @param string
+     * @return boolean
+     */
+    public function hasParameter($key)
+    {
+        return $this->parameters->has($key);
+    }
+
+    /**
+     * @return boolean
+     */
+    public function getWithForm()
+    {
+        return $this->getParameter('withForm');
+    }
+
+    /**
+     * @param boolean
+     * @return self
+     */
+    public function setWithForm($value)
+    {
+        return $this->setParameter('withForm', $value);
+    }
 }

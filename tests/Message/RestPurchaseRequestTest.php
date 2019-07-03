@@ -99,6 +99,7 @@ class RestPurchaseRequestTest extends TestCase
         $this->assertEquals($card['lastName'], $data['customer']['billingDetails']['lastName']);
         $this->assertEquals($card['firstName'], $data['customer']['billingDetails']['firstName']);
         $this->assertEquals($card['email'], $data['customer']['email']);
+        $this->assertEquals('PAYMENT', $data['formAction']);
     }
 
     public function testGetDataWithCardReferenceAndNoForm()
