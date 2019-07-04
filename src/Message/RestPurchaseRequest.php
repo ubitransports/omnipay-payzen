@@ -19,7 +19,6 @@ class RestPurchaseRequest extends AbstractRestRequest
         if ($this->getCard()) {
             $data['customer'] = [
                 'email' => $this->getCard()->getEmail(),
-                'reference' => '', //passenger id ?
                 'billingDetails' => [
                     'firstName' => $this->getCard()->getBillingFirstName(),
                     'lastName' => $this->getCard()->getBillingLastName(),
