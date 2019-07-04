@@ -28,7 +28,7 @@ class RestGateway extends AbstractGateway
             'username' => '',
             'password' => '',
             'testPassword' => '',
-            'testMode' => false,
+            'testMode' => true,
         ];
     }
 
