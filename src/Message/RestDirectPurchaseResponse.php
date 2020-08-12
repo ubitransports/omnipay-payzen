@@ -8,7 +8,7 @@ class RestDirectPurchaseResponse extends RestResponse
      */
     public function isSuccessful()
     {
-        return parent::isSuccessful() && 'SUCCESS' === $this->getData()['status'];
+        return parent::isSuccessful() && 'SUCCESS' === $this->getData()['status'] && $this->checkOrderStatus();
     }
 
     /**
@@ -29,5 +29,15 @@ class RestDirectPurchaseResponse extends RestResponse
             return null;
         }
         return $this->getData()['answer']['orderDetails']['orderId'];
+    }
+
+    private function checkOrderStatus()
+    {
+        $data = $this->getData();
+        if (!isset($data['answer'], $data['answer']['orderStatus'])) {
+            return false;
+        }
+
+        return 'PAID' === $data['answer']['orderStatus'];
     }
 }
