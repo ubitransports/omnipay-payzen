@@ -22,6 +22,13 @@ class CreateCardRequest extends AbstractRequest
         $data['vads_version'] = 'V2';
         $data['vads_ext_info_owner_reference'] = $this->getOwnerReference();
 
+        $metadata = $this->getMetadata();
+        if (!empty($metadata)) {
+            foreach ($metadata as $key => $value) {
+                $data['vads_ext_info_' . $key] = $value;
+            }
+        }
+
         if (null !== $this->getNotifyUrl()) {
             $data['vads_url_check'] = $this->getNotifyUrl();
         }

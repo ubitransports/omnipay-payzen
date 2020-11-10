@@ -33,4 +33,9 @@ interface CardCreationResponseInterface
      * @return string|null
      */
     public function getOwnerReference();
+
+    /**
+     * @return array
+     */
+    public function getMetadata();
 }

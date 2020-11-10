@@ -56,7 +56,9 @@ class CompletePurchaseResponseTest extends TestCase
             'vads_action_mode' => 'INTERACTIVE',
             'vads_payment_config' => 'SINGLE',
             'vads_page_action' => 'PAYMENT',
-            'signature' => '3132f1e451075f2408cda41f2e647e9b4747d421',
+            'vads_ext_info_metadata_1' => 'Lorem',
+            'vads_ext_info_metadata_2' => 'Ipsum',
+            'signature' => '3132f1e45107f5f2408cda41f2e647e9b4747d421',
         ));
 
 
@@ -66,5 +68,11 @@ class CompletePurchaseResponseTest extends TestCase
 
         $this->assertSame('454058', $response->getTransactionReference());
         $this->assertSame('20140902094139', $response->getTransactionDate());
+
+        $metadata = array(
+            'metadata_1' => 'Lorem',
+            'metadata_2' => 'Ipsum'
+        );
+        $this->assertSame($metadata, $response->getMetadata());
     }
 }

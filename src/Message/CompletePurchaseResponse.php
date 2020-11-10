@@ -11,6 +11,8 @@ class CompletePurchaseResponse extends AbstractResponse implements CardCreationR
 {
     use GetCardInformationTrait;
 
+    use GetMetadataTrait;
+
     public function isSuccessful()
     {
         return $this->getTransactionStatus() == 'AUTHORISED';

@@ -118,6 +118,16 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
         return $this->getParameter('ownerReference');
     }
 
+    public function setMetadata(array $value)
+    {
+        return $this->setParameter('metadata', $value);
+    }
+
+    public function getMetadata()
+    {
+        return $this->getParameter('metadata');
+    }
+
     public function formatCurrency($amount)
     {
         return (string) intval(strval($amount * 100));
