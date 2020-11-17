@@ -11,6 +11,8 @@ class CompleteCardCreationResponse extends AbstractResponse implements CardCreat
 {
     use GetCardInformationTrait;
 
+    use GetMetadataTrait;
+
     public function isSuccessful()
     {
         return $this->getTransactionStatus() == 'ACCEPTED';

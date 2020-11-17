@@ -48,6 +48,13 @@ class PurchaseRequest extends AbstractRequest
             $data['vads_cust_email'] = $this->getCard()->getEmail();
         }
 
+        $metadata = $this->getMetadata();
+        if (!empty($metadata)) {
+            foreach ($metadata as $key => $value) {
+                $data['vads_ext_info_' . $key] = $value;
+            }
+        }
+
         if ($this->hasCardReference()) {
             $data['vads_identifier'] = $this->getCardReference();
         }

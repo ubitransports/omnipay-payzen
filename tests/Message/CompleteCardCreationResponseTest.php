@@ -12,6 +12,10 @@ class CompleteCardCreationResponseTest extends TestCase
         $cardNumber = 'asupercardnumber';
         $cardBrand = 'CB';
         $expireAt = new \DateTime('2048-06-30');
+        $metadata = array(
+            'metadata_1' => 'Lorem',
+            'metadata_2' => 'Ipsum'
+        );
         $response = new CompleteCardCreationResponse($this->getMockRequest(), array(
             'signature' => '3132f1e451075f2408cda41f2e647e9b4747d421',
             'vads_amount' => '0',
@@ -38,6 +42,8 @@ class CompleteCardCreationResponseTest extends TestCase
             'vads_trans_id' => 'thetransid',
             'vads_trans_status' => 'ACCEPTED',
             'vads_trans_uuid' => 'thetransuuid',
+            'vads_ext_info_metadata_1' => 'Lorem',
+            'vads_ext_info_metadata_2' => 'Ipsum'
         ));
 
 
@@ -49,5 +55,6 @@ class CompleteCardCreationResponseTest extends TestCase
         $this->assertSame($cardNumber, $response->getCardNumber());
         $this->assertEquals($expireAt, $response->getCardExpiryDate());
         $this->assertSame($cardBrand, $response->getCardBrand());
+        $this->assertSame($metadata, $response->getMetadata());
     }
 }
