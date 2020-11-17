@@ -1,11 +1,11 @@
 <?php
 namespace Omnipay\PayZen\Message;
 
-use Omnipay\Common\Message\AbstractRequest;
+use Omnipay\Common\Message\AbstractRequest as OmniPayAbstractRequest;
 use Omnipay\Common\Exception\InvalidResponseException;
 use Omnipay\Common\Message\ResponseInterface;
 
-abstract class AbstractRestRequest extends AbstractRequest
+abstract class AbstractRestRequest extends OmniPayAbstractRequest
 {
     /**
      * Rest API endpoint
