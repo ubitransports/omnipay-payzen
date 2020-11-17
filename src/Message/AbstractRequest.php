@@ -2,10 +2,12 @@
 
 namespace Omnipay\PayZen\Message;
 
+use Omnipay\Common\Message\AbstractRequest as OmniPayAbstractRequest;
+
 /**
  * PayZen Abstract Request
  */
-abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
+abstract class AbstractRequest extends OmniPayAbstractRequest
 {
 
     public function getMerchantId()
