@@ -15,7 +15,7 @@ class CompletePurchaseResponse extends AbstractResponse implements CardCreationR
 
     public function isSuccessful()
     {
-        return $this->getTransactionStatus() == 'AUTHORISED';
+        return in_array($this->getTransactionStatus(), ['AUTHORISED', 'CAPTURED']);
     }
 
     public function getTransactionReference()
