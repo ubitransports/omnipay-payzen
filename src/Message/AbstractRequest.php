@@ -7,6 +7,8 @@ namespace Omnipay\PayZen\Message;
  */
 abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
 {
+    const PAYMENT_CONFIG_SINGLE = 'SINGLE';
+    const PAYMENT_CONFIG_MULTIPLE = 'MULTIPLE';
 
     public function getMerchantId()
     {
@@ -116,6 +118,16 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
     public function getPaymentCards()
     {
         return $this->getParameter('paymentCards');
+    }
+
+    public function setPaymentConfig($value)
+    {
+        $this->setParameter('paymentConfig', $value);
+    }
+
+    public function getPaymentConfig()
+    {
+        return $this->getParameter('paymentConfig');
     }
 
     public function setOrderId($value)
