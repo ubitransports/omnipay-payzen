@@ -50,6 +50,16 @@ abstract class AbstractRequest extends OmniPayAbstractRequest
         return $this->getParameter('successUrl');
     }
 
+    public function setRedirectSuccessTimeout($value)
+    {
+        return $this->setParameter('redirectSuccessTimeout', $value);
+    }
+
+    public function getRedirectSuccessTimeout()
+    {
+        return $this->getParameter('redirectSuccessTimeout');
+    }
+
     public function setCancelUrl($value)
     {
         return $this->setParameter('cancelUrl', $value);
@@ -68,6 +78,16 @@ abstract class AbstractRequest extends OmniPayAbstractRequest
     public function getErrorUrl()
     {
         return $this->getParameter('errorUrl');
+    }
+
+    public function setRedirectErrorTimeout($value)
+    {
+        return $this->setParameter('redirectErrorTimeout', $value);
+    }
+
+    public function getRedirectErrorTimeout()
+    {
+        return $this->getParameter('redirectErrorTimeout');
     }
 
     public function setRefusedUrl($value)
@@ -107,7 +127,7 @@ abstract class AbstractRequest extends OmniPayAbstractRequest
 
     public function getUuid()
     {
-        return $this->setParameter('vads_trans_uuid');
+        return $this->getParameter('vads_trans_uuid');
     }
 
     public function setOwnerReference($value)
