@@ -33,7 +33,9 @@ class PurchaseRequestTest extends TestCase
             'metadata' => array(
                 'info1' => '1',
                 'info2' => '2'
-            )
+            ),
+            'redirectSuccessTimeout' => 3,
+            'redirectErrorTimeout' => 5
         ));
         $data = $this->request->getData();
 
@@ -52,9 +54,11 @@ class PurchaseRequestTest extends TestCase
         $this->assertSame('http://cancel', $data['vads_url_cancel']);
         $this->assertSame('http://error', $data['vads_url_error']);
         $this->assertSame('http://refused', $data['vads_url_refused']);
-        $this->assertSame('82f40d72ac5d54be8c94e9e741ad57f136bf08be', $data['signature']);
+        $this->assertSame('c7779129a35f43bc204c5e37a6782160ef35ef44', $data['signature']);
         $this->assertSame('1', $data['vads_ext_info_info1']);
         $this->assertSame('2', $data['vads_ext_info_info2']);
+        $this->assertSame(3, $data['vads_redirect_success_timeout']);
+        $this->assertSame(5, $data['vads_redirect_error_timeout']);
     }
 
     public function testGetRegisterPayData()
@@ -78,7 +82,9 @@ class PurchaseRequestTest extends TestCase
             'metadata' => array(
                 'info1' => '1',
                 'info2' => '2'
-            )
+            ),
+            'redirectSuccessTimeout' => 3,
+            'redirectErrorTimeout' => 5
         ));
         $data = $this->request->getData();
 
@@ -97,10 +103,12 @@ class PurchaseRequestTest extends TestCase
         $this->assertSame('http://cancel', $data['vads_url_cancel']);
         $this->assertSame('http://error', $data['vads_url_error']);
         $this->assertSame('http://refused', $data['vads_url_refused']);
-        $this->assertSame('2a83b1bbd0cd09e01a7e1c8a0beaacff73fa75dd', $data['signature']);
+        $this->assertSame('4cbe6302811fcf57235c5f6b60b33c153e4bb852', $data['signature']);
         $this->assertSame('a owner reference', $data['vads_ext_info_owner_reference']);
         $this->assertSame('1', $data['vads_ext_info_info1']);
         $this->assertSame('2', $data['vads_ext_info_info2']);
+        $this->assertSame(3, $data['vads_redirect_success_timeout']);
+        $this->assertSame(5, $data['vads_redirect_error_timeout']);
     }
 
     public function testGetRegisterPayWithCardReferenceData()
@@ -124,7 +132,9 @@ class PurchaseRequestTest extends TestCase
             'metadata' => array(
                 'info1' => '1',
                 'info2' => '2'
-            )
+            ),
+            'redirectSuccessTimeout' => 3,
+            'redirectErrorTimeout' => 5
         ));
         $data = $this->request->getData();
 
@@ -143,8 +153,10 @@ class PurchaseRequestTest extends TestCase
         $this->assertSame('http://cancel', $data['vads_url_cancel']);
         $this->assertSame('http://error', $data['vads_url_error']);
         $this->assertSame('http://refused', $data['vads_url_refused']);
-        $this->assertSame('c112081cb7df1508d3612bcad89bf1003537595d', $data['signature']);
+        $this->assertSame('338634eeb4cf969a37088259c5a985a3386a5f20', $data['signature']);
         $this->assertSame('1', $data['vads_ext_info_info1']);
         $this->assertSame('2', $data['vads_ext_info_info2']);
+        $this->assertSame(3, $data['vads_redirect_success_timeout']);
+        $this->assertSame(5, $data['vads_redirect_error_timeout']);
     }
 }

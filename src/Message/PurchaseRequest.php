@@ -36,6 +36,14 @@ class PurchaseRequest extends AbstractRequest
             $data['vads_url_check'] = $this->getNotifyUrl();
         }
 
+        if (null !== $this->getRedirectSuccessTimeout()) {
+            $data['vads_redirect_success_timeout'] = $this->getRedirectSuccessTimeout();
+        }
+
+        if (null !== $this->getRedirectErrorTimeout()) {
+            $data['vads_redirect_error_timeout'] = $this->getRedirectErrorTimeout();
+        }
+
         // Customer infos
         if ($this->getCard()) {
             $data['vads_cust_first_name'] = $this->getCard()->getName();
