@@ -33,6 +33,11 @@ class CreateCardRequest extends AbstractRequest
             $data['vads_url_check'] = $this->getNotifyUrl();
         }
 
+        $currencyNumeric = $this->getCurrencyNumeric();
+        if (null !== $currencyNumeric) {
+            $data['vads_currency'] = $currencyNumeric;
+        }
+
         if ($this->getCard()) {
             $data['vads_cust_address'] = $this->getCard()->getAddress1();
             $data['vads_cust_city'] = $this->getCard()->getCity();
