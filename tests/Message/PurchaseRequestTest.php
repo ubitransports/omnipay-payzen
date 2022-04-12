@@ -2,6 +2,7 @@
 
 namespace Omnipay\PayZen\Message;
 
+use DateTime;
 use Omnipay\Tests\TestCase;
 
 class PurchaseRequestTest extends TestCase
@@ -158,5 +159,72 @@ class PurchaseRequestTest extends TestCase
         $this->assertSame('2', $data['vads_ext_info_info2']);
         $this->assertSame(3, $data['vads_redirect_success_timeout']);
         $this->assertSame(5, $data['vads_redirect_error_timeout']);
+    }
+
+    public function testSetPaymentConfigMulti()
+    {
+        $this->request->setPaymentConfig('MULTI', ['first' => 10.0, 'count' => 2, 'period' => 5]);
+        $this->assertEquals('MULTI:first=1000;count=2;period=5', $this->request->getPaymentConfig());
+    }
+
+    /**
+     * @expectedException Omnipay\Common\Exception\InvalidRequestException
+     */
+    public function testSetPaymentConfigMulti_ShouldThrowAnException()
+    {
+        // Missing argument 'first'
+        $this->request->setPaymentConfig('MULTI', ['count' => 2, 'period' => 5]);
+
+        // argument first must be a floatval
+        $this->request->setPaymentConfig('MULTI', ['first' => 10, 'count' => 2, 'period' => 5]);
+
+        // argument count must be an integer greater than PurchaseRequest::TYPE_MULTI_MIN_INSTALLMENTS
+        $this->request->setPaymentConfig('MULTI', ['first' => 10, 'count' => 1, 'period' => 5]);
+
+        // argument period must be an integer greater than PurchaseRequest::TYPE_MULTI_MIN_DAYS_BTW_PERIOD
+        $this->request->setPaymentConfig('MULTI', ['first' => 10, 'count' => 3, 'period' => 0]);
+    }
+
+    public function testSetPaymentConfigMultiExt()
+    {
+        $this->request->setAmount(33.0);
+
+        $values = [
+            (new DateTime())->format('Ymd') => 12.0,
+            (new DateTime('+15 days'))->format('Ymd') => 11.0,
+            (new DateTime('+30 days'))->format('Ymd') => 10.0
+        ];
+
+        $dates = array_keys($values);
+
+        $this->request->setPaymentConfig('MULTI_EXT', $values);
+        $this->assertEquals('MULTI_EXT:'.$dates[0].'=1200;'.$dates[1].'=1100;'.$dates[2].'=1000', $this->request->getPaymentConfig());
+    }
+
+    /**
+     * @expectedException Omnipay\Common\Exception\InvalidRequestException
+     */
+    public function testSetPaymentConfigMultiExt_ShouldThrowAnException()
+    {
+        $this->request->setAmount(33.0);
+
+        // Invalid past date
+        $values = [
+            (new DateTime())->format('Ymd') => 12.0,
+            (new DateTime('-2 days'))->format('Ymd') => 11.0,
+            (new DateTime('+30 days'))->format('Ymd') => 10.0
+        ];
+
+        $this->request->setPaymentConfig('MULTI_EXT', $values);
+
+        // Sum of amounts doesn't match with the total
+        $this->request->setAmount(30.0);
+        $values = [
+            (new DateTime())->format('Ymd') => 12.0,
+            (new DateTime('-15 days'))->format('Ymd') => 11.0,
+            (new DateTime('+30 days'))->format('Ymd') => 10.0
+        ];
+
+        $this->request->setPaymentConfig('MULTI_EXT', $values);
     }
 }
