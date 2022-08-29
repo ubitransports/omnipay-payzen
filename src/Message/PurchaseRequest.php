@@ -20,6 +20,12 @@ class PurchaseRequest extends AbstractRequest
     const TYPE_MULTI_MIN_INSTALLMENTS = 1;
     const TYPE_MULTI_MIN_DAYS_BTW_PERIOD = 0;
 
+    const SHIP_TYPE_RECLAIM_IN_SHOP = 'RECLAIM_IN_SHOP';
+    const SHIP_TYPE_RELAY_POINT = 'RELAY_POINT';
+    const SHIP_TYPE_RECLAIM_IN_STATION = 'RECLAIM_IN_STATION';
+    const SHIP_TYPE_PACKAGE_DELIVERY_COMPANY = 'PACKAGE_DELIVERY_COMPANY';
+    const SHIP_TYPE_ETICKET = 'ETICKET';
+
     public function getData()
     {
         $this->validate('amount');
@@ -44,6 +50,10 @@ class PurchaseRequest extends AbstractRequest
         $data['vads_order_id'] = $this->getOrderId();
         $data['vads_payment_cards'] = $this->getPaymentCards();
         $data['vads_ext_info_owner_reference'] = $this->getOwnerReference();
+
+        if (null !== $this->getShipToType()) {
+            $data['vads_ship_to_type'] = $this->getShipToType();
+        }
 
         if (null !== $this->getNotifyUrl()) {
             $data['vads_url_check'] = $this->getNotifyUrl();
@@ -148,6 +158,38 @@ class PurchaseRequest extends AbstractRequest
         }
 
         return $this->setParameter('captureDelay', $value);
+    }
+
+    /**
+     * @return string
+     */
+    public function getShipToType()
+    {
+        return $this->getParameter('shipToType');
+    }
+
+    /**
+     * @param string $value
+     * @return PurchaseRequest
+     * @throws InvalidRequestException
+     */
+    public function setShipToType($value)
+    {
+        $shipToTypeAuthorizedValues = [
+            self::SHIP_TYPE_RECLAIM_IN_SHOP,
+            self::SHIP_TYPE_RELAY_POINT,
+            self::SHIP_TYPE_RECLAIM_IN_STATION,
+            self::SHIP_TYPE_PACKAGE_DELIVERY_COMPANY,
+            self::SHIP_TYPE_ETICKET
+        ];
+
+        if (!in_array($value, $shipToTypeAuthorizedValues)) {
+            throw new InvalidRequestException(
+                sprintf('Invalid shipToType. Authorized values are %s', implode(', ', $shipToTypeAuthorizedValues))
+            );
+        }
+
+        return $this->setParameter('shipToType', $value);
     }
 
     public function getPaymentConfig()

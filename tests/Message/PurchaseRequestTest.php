@@ -26,6 +26,7 @@ class PurchaseRequestTest extends TestCase
             'transactionDate' => '20090501193530',
             'certificate' => '1122334455667788',
             'orderId' => '123',
+            'shipToType' => 'ETICKET',
             'successUrl' => 'http://success',
             'cancelUrl' => 'http://cancel',
             'errorUrl' => 'http://error',
@@ -51,15 +52,14 @@ class PurchaseRequestTest extends TestCase
         $this->assertSame('654321', $data['vads_trans_id']);
         $this->assertSame('20090501193530', $data['vads_trans_date']);
         $this->assertSame('123', $data['vads_order_id']);
+        $this->assertSame('ETICKET', $data['vads_ship_to_type']);
         $this->assertSame('http://success', $data['vads_url_success']);
         $this->assertSame('http://cancel', $data['vads_url_cancel']);
         $this->assertSame('http://error', $data['vads_url_error']);
         $this->assertSame('http://refused', $data['vads_url_refused']);
-        $this->assertSame('c7779129a35f43bc204c5e37a6782160ef35ef44', $data['signature']);
+        $this->assertSame('6c8f14b7fb9d8bcaf34db14fb2021f9b2d7598f0', $data['signature']);
         $this->assertSame('1', $data['vads_ext_info_info1']);
         $this->assertSame('2', $data['vads_ext_info_info2']);
-        $this->assertSame(3, $data['vads_redirect_success_timeout']);
-        $this->assertSame(5, $data['vads_redirect_error_timeout']);
     }
 
     public function testGetRegisterPayData()
@@ -73,6 +73,7 @@ class PurchaseRequestTest extends TestCase
             'transactionDate' => '20090501193530',
             'certificate' => '1122334455667788',
             'orderId' => '123',
+            'shipToType' => 'ETICKET',
             'successUrl' => 'http://success',
             'cancelUrl' => 'http://cancel',
             'errorUrl' => 'http://error',
@@ -100,11 +101,12 @@ class PurchaseRequestTest extends TestCase
         $this->assertSame('654321', $data['vads_trans_id']);
         $this->assertSame('20090501193530', $data['vads_trans_date']);
         $this->assertSame('123', $data['vads_order_id']);
+        $this->assertSame('ETICKET', $data['vads_ship_to_type']);
         $this->assertSame('http://success', $data['vads_url_success']);
         $this->assertSame('http://cancel', $data['vads_url_cancel']);
         $this->assertSame('http://error', $data['vads_url_error']);
         $this->assertSame('http://refused', $data['vads_url_refused']);
-        $this->assertSame('4cbe6302811fcf57235c5f6b60b33c153e4bb852', $data['signature']);
+        $this->assertSame('acbecc5eae87decfeae5c0228d6cb66dfd7ab6f3', $data['signature']);
         $this->assertSame('a owner reference', $data['vads_ext_info_owner_reference']);
         $this->assertSame('1', $data['vads_ext_info_info1']);
         $this->assertSame('2', $data['vads_ext_info_info2']);
@@ -123,6 +125,7 @@ class PurchaseRequestTest extends TestCase
             'transactionDate' => '20090501193530',
             'certificate' => '1122334455667788',
             'orderId' => '123',
+            'shipToType' => 'ETICKET',
             'successUrl' => 'http://success',
             'cancelUrl' => 'http://cancel',
             'errorUrl' => 'http://error',
@@ -150,11 +153,12 @@ class PurchaseRequestTest extends TestCase
         $this->assertSame('654321', $data['vads_trans_id']);
         $this->assertSame('20090501193530', $data['vads_trans_date']);
         $this->assertSame('123', $data['vads_order_id']);
+        $this->assertSame('ETICKET', $data['vads_ship_to_type']);
         $this->assertSame('http://success', $data['vads_url_success']);
         $this->assertSame('http://cancel', $data['vads_url_cancel']);
         $this->assertSame('http://error', $data['vads_url_error']);
         $this->assertSame('http://refused', $data['vads_url_refused']);
-        $this->assertSame('338634eeb4cf969a37088259c5a985a3386a5f20', $data['signature']);
+        $this->assertSame('73f231e768cfaafc3ccf0f9b63cf58dd972b3c64', $data['signature']);
         $this->assertSame('1', $data['vads_ext_info_info1']);
         $this->assertSame('2', $data['vads_ext_info_info2']);
         $this->assertSame(3, $data['vads_redirect_success_timeout']);
@@ -226,5 +230,13 @@ class PurchaseRequestTest extends TestCase
         ];
 
         $this->request->setPaymentConfig('MULTI_EXT', $values);
+    }
+
+    /**
+     * @expectedException Omnipay\Common\Exception\InvalidRequestException
+     */
+    public function testSetShipToType_ShouldThrowAnException()
+    {
+        $this->request->setShipToType('UNKNOWN');
     }
 }
