@@ -1,9 +1,9 @@
 <?php
 
 namespace Omnipay\PayZen;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class ValidationTest extends PHPUnit_Framework_TestCase
+class ValidationTest extends TestCase
 {
     public function testIsDate()
     {

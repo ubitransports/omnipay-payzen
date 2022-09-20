@@ -6,7 +6,7 @@ use Omnipay\Tests\GatewayTestCase;
 
 class GatewayTest extends GatewayTestCase
 {
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -18,7 +18,7 @@ class GatewayTest extends GatewayTestCase
         $request = $this->gateway->purchase(array('amount' => '10.00'));
 
         $this->assertInstanceOf('Omnipay\PayZen\Message\PurchaseRequest', $request);
-        $this->assertSame('1000', $request->getAmount());
+        $this->assertSame(1000, $request->getAmountInteger());
         $this->assertSame('PAYMENT', $request->getData()['vads_page_action']);
         $this->assertArrayNotHasKey('vads_identifier', $request->getData());
     }
@@ -28,7 +28,7 @@ class GatewayTest extends GatewayTestCase
         $request = $this->gateway->completePurchase(array('amount' => '10.00'));
 
         $this->assertInstanceOf('Omnipay\PayZen\Message\CompletePurchaseRequest', $request);
-        $this->assertSame('1000', $request->getAmount());
+        $this->assertSame(1000, $request->getAmountInteger());
     }
 
     public function testPurchaseCreatingCard()

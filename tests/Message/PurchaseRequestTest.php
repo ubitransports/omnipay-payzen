@@ -3,13 +3,14 @@
 namespace Omnipay\PayZen\Message;
 
 use DateTime;
+use Omnipay\Common\Exception\InvalidRequestException;
 use Omnipay\Tests\TestCase;
 
 class PurchaseRequestTest extends TestCase
 {
     private $request;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         $this->request = new PurchaseRequest($this->getHttpClient(), $this->getHttpRequest());
@@ -41,7 +42,7 @@ class PurchaseRequestTest extends TestCase
         ));
         $data = $this->request->getData();
 
-        $this->assertSame('1524', $data['vads_amount']);
+        $this->assertSame(1524, $data['vads_amount']);
         $this->assertSame('12345678', $data['vads_site_id']);
         $this->assertSame('978', $data['vads_currency']);
         $this->assertSame('INTERACTIVE', $data['vads_action_mode']);
@@ -90,7 +91,7 @@ class PurchaseRequestTest extends TestCase
         ));
         $data = $this->request->getData();
 
-        $this->assertSame('1524', $data['vads_amount']);
+        $this->assertSame(1524, $data['vads_amount']);
         $this->assertSame('12345678', $data['vads_site_id']);
         $this->assertSame('978', $data['vads_currency']);
         $this->assertSame('INTERACTIVE', $data['vads_action_mode']);
@@ -142,7 +143,7 @@ class PurchaseRequestTest extends TestCase
         ));
         $data = $this->request->getData();
 
-        $this->assertSame('1524', $data['vads_amount']);
+        $this->assertSame(1524, $data['vads_amount']);
         $this->assertSame('12345678', $data['vads_site_id']);
         $this->assertSame('978', $data['vads_currency']);
         $this->assertSame('INTERACTIVE', $data['vads_action_mode']);
@@ -171,11 +172,10 @@ class PurchaseRequestTest extends TestCase
         $this->assertEquals('MULTI:first=1000;count=2;period=5', $this->request->getPaymentConfig());
     }
 
-    /**
-     * @expectedException Omnipay\Common\Exception\InvalidRequestException
-     */
     public function testSetPaymentConfigMulti_ShouldThrowAnException()
     {
+        $this->expectException(InvalidRequestException::class);
+
         // Missing argument 'first'
         $this->request->setPaymentConfig('MULTI', ['count' => 2, 'period' => 5]);
 
@@ -205,11 +205,9 @@ class PurchaseRequestTest extends TestCase
         $this->assertEquals('MULTI_EXT:'.$dates[0].'=1200;'.$dates[1].'=1100;'.$dates[2].'=1000', $this->request->getPaymentConfig());
     }
 
-    /**
-     * @expectedException Omnipay\Common\Exception\InvalidRequestException
-     */
     public function testSetPaymentConfigMultiExt_ShouldThrowAnException()
     {
+        $this->expectException(InvalidRequestException::class);
         $this->request->setAmount(33.0);
 
         // Invalid past date

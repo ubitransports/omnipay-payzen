@@ -26,6 +26,7 @@
         "omnipay/common": "^3.0"
     },
     "require-dev": {
-        "omnipay/tests": "~2.0"
+        "omnipay/tests": "^4.0",
+        "phpunit/phpunit": "^8.5"
     }
 }
