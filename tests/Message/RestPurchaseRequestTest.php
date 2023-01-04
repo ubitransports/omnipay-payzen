@@ -2,21 +2,19 @@
 
 namespace Omnipay\PayZen\Message;
 
+use Omnipay\Common\Exception\InvalidRequestException;
 use Omnipay\Tests\TestCase;
 
 class RestPurchaseRequestTest extends TestCase
 {
     private $request;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         $this->request = new RestPurchaseRequest($this->getHttpClient(), $this->getHttpRequest());
     }
 
-    /**
-     * @expectedException Omnipay\Common\Exception\InvalidRequestException
-     */
     public function testGetDataMissingAmount()
     {
         $this->request->initialize([
@@ -25,6 +23,9 @@ class RestPurchaseRequestTest extends TestCase
             'password' => 'mypassword',
             'testPassword' => 'test_mypassword',
         ]);
+
+
+        $this->expectException(InvalidRequestException::class);
 
         $this->request->getData();
     }

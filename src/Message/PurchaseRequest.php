@@ -35,7 +35,7 @@ class PurchaseRequest extends AbstractRequest
         $data['vads_ctx_mode'] = $this->getTestMode() ? 'TEST' : 'PRODUCTION';
         $data['vads_trans_id'] = $this->getTransactionId();
         $data['vads_trans_date'] = $this->getTransactionDate();
-        $data['vads_amount'] = $this->getAmount();
+        $data['vads_amount'] = $this->getAmountInteger();
         $data['vads_currency'] = $this->getCurrencyNumeric();
         $data['vads_action_mode'] = 'INTERACTIVE';
         $data['vads_page_action'] = $this->resolvePageAction();
@@ -280,7 +280,7 @@ class PurchaseRequest extends AbstractRequest
             $totalAmount += (int) $amount;
         }
 
-        if ($totalAmount !== (int) $this->getAmount()) {
+        if ($totalAmount !== (int) $this->getAmountInteger()) {
             throw new InvalidRequestException("Sum of amounts doesn't match with the total");
         }
 
@@ -327,5 +327,21 @@ class PurchaseRequest extends AbstractRequest
 
             return $this->formatCurrency($amount);
         }
+    }
+
+    private function toFloat($value)
+    {
+        if (!is_string($value) && !is_int($value) && !is_float($value)) {
+            throw new InvalidArgumentException('Data type is not a valid decimal number.');
+        }
+
+        if (is_string($value)) {
+            // Validate generic number, with optional sign and decimals.
+            if (!preg_match('/^[-]?[0-9]+(\.[0-9]*)?$/', $value)) {
+                throw new InvalidArgumentException('String is not a valid decimal number.');
+            }
+        }
+
+        return (float)$value;
     }
 }

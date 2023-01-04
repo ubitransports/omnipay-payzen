@@ -6,7 +6,7 @@ use Omnipay\Tests\GatewayTestCase;
 
 class RestGatewayTest extends GatewayTestCase
 {
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         $this->gateway = new RestGateway($this->getHttpClient(), $this->getHttpRequest());
