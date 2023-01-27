@@ -20,35 +20,30 @@ abstract class AbstractRestRequest extends OmniPayAbstractRequest
      * @throws InvalidResponseException
      * @return ResponseInterface
      */
-    public function sendData($data)
+    public function sendData($data): ResponseInterface
     {
-        if ($this->getHttpMethod() == 'GET') {
-            $httpRequest = $this->httpClient->createRequest(
+        try {
+            if ($this->getHttpMethod() == 'GET') {
+                $requestUrl = $this->getEndpoint() . '?' . http_build_query($data);
+                $body = null;
+            } else {
+                $body = $this->toJSON($data);
+                $requestUrl = $this->getEndpoint();
+            }
+
+            $httpResponse = $this->httpClient->request(
                 $this->getHttpMethod(),
-                $this->getEndpoint() . '?' . http_build_query($data),
+                $requestUrl,
                 array(
                     'Accept' => 'application/json',
-                    'Authorization' => 'Basic ' . $this->getBearerToken(),
-                    'Content-type' => 'application/json',
-                )
-            );
-        } else {
-            $httpRequest = $this->httpClient->createRequest(
-                $this->getHttpMethod(),
-                $this->getEndpoint(),
-                array(
-                    'Accept' => 'application/json',
-                    'Authorization' => 'Basic ' . $this->getBearerToken(),
+                    'Authorization' => 'Bearer ' . $this->getBearerToken(),
                     'Content-type' => 'application/json',
                 ),
-                $this->toJSON($data)
+                $body
             );
-        }
 
-        try {
-            $httpResponse = $httpRequest->send();
-            $body = $httpResponse->getBody(true);
-            $jsonToArrayResponse = !empty($body) ? $httpResponse->json() : [];
+            $body = (string) $httpResponse->getBody()->getContents();
+            $jsonToArrayResponse = !empty($body) ? json_decode($body, true) : array();
             return $this->response = $this->createResponse($jsonToArrayResponse, $httpResponse->getStatusCode());
         } catch (\Exception $e) {
             throw new InvalidResponseException(
@@ -58,94 +53,60 @@ abstract class AbstractRestRequest extends OmniPayAbstractRequest
         }
     }
 
-    /**
-     * @return string
-     */
-    public function setUsername($value)
+    public function setUsername($value): AbstractRestRequest
     {
         return $this->setParameter('username', $value);
     }
 
-    /**
-     * @return string
-     */
     public function getUsername()
     {
         return $this->getParameter('username');
     }
 
-    /**
-     * @return string
-     */
-    public function setPassword($value)
+    public function setPassword($value): AbstractRestRequest
     {
         return $this->setParameter('password', $value);
     }
 
-    /**
-     * @return string
-     */
     public function getPassword()
     {
         return $this->getParameter('password');
     }
 
-    /**
-     * @return string
-     */
-    public function setTestPassword($value)
+    public function setTestPassword($value): AbstractRestRequest
     {
         return $this->setParameter('testPassword', $value);
     }
 
-    /**
-     * @return string
-     */
     public function getTestPassword()
     {
         return $this->getParameter('testPassword');
     }
 
-    /**
-     * Use to define the request verb
-     * @return string
-     */
-    protected function getHttpMethod()
+    protected function getHttpMethod(): string
     {
         return 'POST';
     }
 
-    /**
-     * @return string
-     */
-    protected function getEndpoint()
+    protected function getEndpoint(): string
     {
         return $this->liveEndPoint;
     }
 
     /**
      * Convert a set of data into a JSON
-     * @param array $data
-     * @param integer $options
-     * @return string
      */
-    protected function toJSON(array $data, $options = 0)
+    protected function toJSON(array $data, ?int $options = 0): string
     {
         return json_encode($data, $options | JSON_UNESCAPED_SLASHES);
     }
 
-    /**
-     * Allow the use of custom Response
-     * @param array $data
-     * @param integer $statusCode
-     */
-    abstract protected function createResponse($data, $statusCode);
+    abstract protected function createResponse(array $data, int $statusCode);
 
     /**
      * Make the Authorization token for PayZen Rest API
-     * @return string
      */
-    private function getBearerToken()
+    private function getBearerToken(): string
     {
         $username = $this->getUsername();
         $password = $this->getPassword();
@@ -160,28 +121,17 @@ abstract class AbstractRestRequest extends OmniPayAbstractRequest
         ));
     }
 
-    /**
-     * @param string
-     * @return boolean
-     */
-    public function hasParameter($key)
+    public function hasParameter(string $key): bool
     {
         return $this->parameters->has($key);
     }
 
-    /**
-     * @return boolean
-     */
-    public function getWithForm()
+    public function getWithForm(): bool
     {
         return $this->getParameter('withForm');
     }
 
-    /**
-     * @param boolean
-     * @return self
-     */
-    public function setWithForm($value)
+    public function setWithForm(bool $value): AbstractRestRequest
     {
         return $this->setParameter('withForm', $value);
     }

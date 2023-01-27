@@ -9,7 +9,7 @@ class CompleteCardCreationRequest extends AbstractRequest
 {
     use GetValidatedSignedDataTrait;
 
-    public function sendData($data)
+    public function sendData($data): CompleteCardCreationResponse
     {
         return $this->response = new CompleteCardCreationResponse($this, $data);
     }

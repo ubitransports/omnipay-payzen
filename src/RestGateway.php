@@ -11,18 +11,12 @@ use Omnipay\Common\Message\RequestInterface;
  */
 class RestGateway extends AbstractGateway
 {
-    /**
-     * @return string
-     */
-    public function getName()
+    public function getName(): string
     {
         return 'PayZen Rest';
     }
 
-    /**
-     * @return array
-     */
-    public function getDefaultParameters()
+    public function getDefaultParameters(): array
     {
         return [
             'username' => '',
@@ -32,61 +26,35 @@ class RestGateway extends AbstractGateway
         ];
     }
 
-    /**
-     * @param array $parameters
-     * @return RequestInterface
-     */
-    public function purchase(array $parameters = [])
+    public function purchase(array $options = []): RequestInterface
     {
-        return $this->createRequest('\Omnipay\PayZen\Message\RestPurchaseRequest', $parameters);
+        return $this->createRequest('\Omnipay\PayZen\Message\RestPurchaseRequest', $options);
     }
 
-    /**
-     * @param string
-     * @return self
-     */
-    public function setUsername($value)
+    public function setUsername($value): RestGateway
     {
         return $this->setParameter('username', $value);
     }
 
-    /**
-     * @return self
-     */
     public function getUsername()
     {
         return $this->getParameter('username');
     }
 
-    /**
-     * @param string
-     * @return self
-     */
-    public function setPassword($value)
+    public function setPassword($value): RestGateway
     {
         return $this->setParameter('password', $value);
     }
-
-    /**
-     * @return string
-     * @return self
-     */
     public function getPassword()
     {
         return $this->getParameter('password');
     }
 
-    /**
-     * @param string
-     */
-    public function setTestPassword($value)
+    public function setTestPassword($value): RestGateway
     {
         return $this->setParameter('testPassword', $value);
     }
 
-    /**
-     * @return string
-     */
     public function getTestPassword()
     {
         return $this->getParameter('testPassword');

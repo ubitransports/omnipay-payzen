@@ -6,24 +6,13 @@ use DateTime;
 
 class Validation
 {
-    /**
-     * @param string $date
-     * @param string $format
-     * @return bool
-     */
-    public static function isDate($date, $format = 'Y-m-d H:i:s')
+    public static function isDate(string $date, ?string $format = 'Y-m-d H:i:s'): bool
     {;
         $d = DateTime::createFromFormat($format, $date);
         return $d && $d->format($format) == $date;
     }
 
-    /**
-     * @param string $date
-     * @param string $start
-     * @param string $end
-     * @return bool
-     */
-    public static function isDateInPeriod($date, $start, $end)
+    public static function isDateInPeriod(string $date, string $start, string $end): bool
     {
         $date = strtotime($date);
         return strtotime($start) <= $date && $date <= strtotime($end);

@@ -3,18 +3,12 @@ namespace Omnipay\PayZen\Message;
 
 class RestDirectPurchaseResponse extends RestResponse
 {
-    /**
-     * @inheritdoc
-     */
-    public function isSuccessful()
+    public function isSuccessful(): bool
     {
         return parent::isSuccessful() && 'SUCCESS' === $this->getData()['status'] && $this->checkOrderStatus();
     }
 
-    /**
-     * @return string|null
-     */
-    public function getTransactionUUID()
+    public function getTransactionUUID(): ?string
     {
         if (!$this->isSuccessful()) {
             return null;
@@ -31,7 +25,7 @@ class RestDirectPurchaseResponse extends RestResponse
         return $this->getData()['answer']['orderDetails']['orderId'];
     }
 
-    private function checkOrderStatus()
+    private function checkOrderStatus(): bool
     {
         $data = $this->getData();
         if (!isset($data['answer'], $data['answer']['orderStatus'])) {

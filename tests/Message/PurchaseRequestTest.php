@@ -230,11 +230,9 @@ class PurchaseRequestTest extends TestCase
         $this->request->setPaymentConfig('MULTI_EXT', $values);
     }
 
-    /**
-     * @expectedException Omnipay\Common\Exception\InvalidRequestException
-     */
     public function testSetShipToType_ShouldThrowAnException()
     {
+        $this->expectException(InvalidRequestException::class);
         $this->request->setShipToType('UNKNOWN');
     }
 }
