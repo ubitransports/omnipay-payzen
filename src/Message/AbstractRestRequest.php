@@ -20,35 +20,30 @@ abstract class AbstractRestRequest extends OmniPayAbstractRequest
      * @throws InvalidResponseException
      * @return ResponseInterface
      */
-    public function sendData($data)
+    public function sendData($data): ResponseInterface
     {
-        if ($this->getHttpMethod() == 'GET') {
-            $httpRequest = $this->httpClient->createRequest(
+        try {
+            if ($this->getHttpMethod() == 'GET') {
+                $requestUrl = $this->getEndpoint() . '?' . http_build_query($data);
+                $body = null;
+            } else {
+                $body = $this->toJSON($data);
+                $requestUrl = $this->getEndpoint();
+            }
+
+            $httpResponse = $this->httpClient->request(
                 $this->getHttpMethod(),
-                $this->getEndpoint() . '?' . http_build_query($data),
-                array(
-                    'Accept' => 'application/json',
-                    'Authorization' => 'Basic ' . $this->getBearerToken(),
-                    'Content-type' => 'application/json',
-                )
-            );
-        } else {
-            $httpRequest = $this->httpClient->createRequest(
-                $this->getHttpMethod(),
-                $this->getEndpoint(),
+                $requestUrl,
                 array(
                     'Accept' => 'application/json',
                     'Authorization' => 'Basic ' . $this->getBearerToken(),
                     'Content-type' => 'application/json',
                 ),
-                $this->toJSON($data)
+                $body
             );
-        }
 
-        try {
-            $httpResponse = $httpRequest->send();
-            $body = $httpResponse->getBody(true);
-            $jsonToArrayResponse = !empty($body) ? $httpResponse->json() : [];
+            $body = (string) $httpResponse->getBody()->getContents();
+            $jsonToArrayResponse = !empty($body) ? json_decode($body, true) : array();
             return $this->response = $this->createResponse($jsonToArrayResponse, $httpResponse->getStatusCode());
         } catch (\Exception $e) {
             throw new InvalidResponseException(
