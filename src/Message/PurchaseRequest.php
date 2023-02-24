@@ -90,6 +90,12 @@ class PurchaseRequest extends AbstractRequest
             $data['vads_identifier'] = $this->getCardReference();
         }
 
+        foreach ($data as $key => $value) {
+            if (is_null($value)) {
+                unset($data[$key]);
+            }
+        }
+
         $data['signature'] = $this->generateSignature($data);
 
         return $data;
