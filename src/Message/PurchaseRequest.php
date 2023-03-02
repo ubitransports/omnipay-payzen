@@ -26,6 +26,11 @@ class PurchaseRequest extends AbstractRequest
     const SHIP_TYPE_PACKAGE_DELIVERY_COMPANY = 'PACKAGE_DELIVERY_COMPANY';
     const SHIP_TYPE_ETICKET = 'ETICKET';
 
+    const RETURN_MODE_EMPTY = '';
+    const RETURN_MODE_NONE = 'NONE';
+    const RETURN_MODE_GET = 'GET';
+    const RETURN_MODE_POST = 'POST';
+
     public function getData()
     {
         $this->validate('amount');
@@ -54,6 +59,11 @@ class PurchaseRequest extends AbstractRequest
         if (null !== $this->getShipToType()) {
             $data['vads_ship_to_type'] = $this->getShipToType();
         }
+
+      $returnMode = $this->getReturnMode();
+      if (null !== $this->getReturnMode()) {
+        $data['vads_return_mode'] = $returnMode;
+      }
 
         if (null !== $this->getNotifyUrl()) {
             $data['vads_url_check'] = $this->getNotifyUrl();
@@ -226,6 +236,37 @@ class PurchaseRequest extends AbstractRequest
 
         $value = $type . ':' . http_build_query($values, '', ';');
         return $this->setParameter('paymentConfig', $value);
+    }
+
+    /**
+     * @return string
+     */
+    public function getReturnMode()
+    {
+      return $this->getParameter('returnMode');
+    }
+
+    /**
+     * @param string $value
+     * @return PurchaseRequest
+     * @throws InvalidRequestException
+     */
+    public function setReturnMode($value)
+    {
+        $returnModeValues = [
+            self::RETURN_MODE_EMPTY,
+            self::RETURN_MODE_NONE,
+            self::RETURN_MODE_GET,
+            self::RETURN_MODE_POST,
+        ];
+
+        if (!in_array($value, $returnModeValues)) {
+            throw new InvalidRequestException(
+                sprintf('Invalid returnMode. Authorized values are %s', implode(', ', $returnModeValues))
+            );
+        }
+
+        return $this->setParameter('returnMode', $value);
     }
 
     /**
