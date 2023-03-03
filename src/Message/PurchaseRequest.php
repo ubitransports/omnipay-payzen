@@ -60,10 +60,10 @@ class PurchaseRequest extends AbstractRequest
             $data['vads_ship_to_type'] = $this->getShipToType();
         }
 
-      $returnMode = $this->getReturnMode();
-      if (null !== $this->getReturnMode()) {
-        $data['vads_return_mode'] = $returnMode;
-      }
+        $returnMode = $this->getReturnMode();
+        if (null !== $this->getReturnMode()) {
+            $data['vads_return_mode'] = $returnMode;
+        }
 
         if (null !== $this->getNotifyUrl()) {
             $data['vads_url_check'] = $this->getNotifyUrl();
@@ -243,7 +243,7 @@ class PurchaseRequest extends AbstractRequest
      */
     public function getReturnMode()
     {
-      return $this->getParameter('returnMode');
+        return $this->getParameter('returnMode');
     }
 
     /**
