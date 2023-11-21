@@ -4,10 +4,7 @@ namespace Omnipay\PayZen\Message;
 
 trait GetMetadataTrait
 {
-    /**
-     * @return array
-     */
-    public function getMetadata()
+    public function getMetadata(): array
     {
         $prefix = 'vads_ext_info_';
         $metadata = array();

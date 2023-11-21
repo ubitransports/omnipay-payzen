@@ -14,12 +14,12 @@ class RedirectToGatewayResponse extends AbstractResponse implements RedirectResp
         return $this->liveEndpoint;
     }
 
-    public function isSuccessful()
+    public function isSuccessful(): bool
     {
         return false;
     }
 
-    public function isRedirect()
+    public function isRedirect(): bool
     {
         return true;
     }
@@ -29,7 +29,7 @@ class RedirectToGatewayResponse extends AbstractResponse implements RedirectResp
         return $this->getEndpoint();
     }
 
-    public function getRedirectMethod()
+    public function getRedirectMethod(): string
     {
         return 'POST';
     }

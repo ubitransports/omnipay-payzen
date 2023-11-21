@@ -30,9 +30,6 @@ class RestPurchaseRequestTest extends TestCase
         $this->request->getData();
     }
 
-    /**
-     * @expectedException Omnipay\Common\Exception\InvalidRequestException
-     */
     public function getDataMissingCurrency()
     {
         $this->request->initialize([
@@ -42,6 +39,8 @@ class RestPurchaseRequestTest extends TestCase
             'testPassword' => 'test_mypassword',
             'amount' => '14.32',
         ]);
+
+        $this->expectException(InvalidRequestException::class);
 
         $this->request->getData();
     }

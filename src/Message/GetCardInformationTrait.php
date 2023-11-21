@@ -7,7 +7,7 @@ trait GetCardInformationTrait
     /**
      * @inheritDoc
      */
-    public function hasCreatedCard()
+    public function hasCreatedCard(): bool
     {
         if (isset($this->data['vads_identifier_status'])
             && 'CREATED' ===  $this->data['vads_identifier_status']
@@ -18,26 +18,17 @@ trait GetCardInformationTrait
         return false;
     }
 
-    /**
-     * @inheritDoc
-     */
     public function getCardReference()
     {
-        return isset($this->data['vads_identifier']) ? $this->data['vads_identifier'] : null;
+        return $this->data['vads_identifier'] ?? null;
     }
 
-    /**
-     * @inheritDoc
-     */
     public function getCardNumber()
     {
-        return isset($this->data['vads_card_number']) ? $this->data['vads_card_number'] : null;
+        return $this->data['vads_card_number'] ?? null;
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function getCardExpiryDate()
+    public function getCardExpiryDate(): ?\DateTime
     {
         if (!isset($this->data['vads_expiry_year'])
             || !isset($this->data['vads_expiry_month'])
@@ -52,22 +43,14 @@ trait GetCardInformationTrait
         return $beginningOfMonth->modify('last day of this month');
     }
 
-    /**
-     * @inheritDoc
-     */
     public function getCardBrand()
     {
-        return isset($this->data['vads_card_brand']) ? $this->data['vads_card_brand'] : null;
+        return $this->data['vads_card_brand'] ?? null;
     }
 
-    /**
-     * @inheritDoc
-     */
     public function getOwnerReference()
     {
-        return isset($this->data['vads_ext_info_owner_reference'])
-            ? $this->data['vads_ext_info_owner_reference']
-            : null
+        return $this->data['vads_ext_info_owner_reference'] ?? null
         ;
     }
 }

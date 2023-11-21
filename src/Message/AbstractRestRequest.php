@@ -36,7 +36,7 @@ abstract class AbstractRestRequest extends OmniPayAbstractRequest
                 $requestUrl,
                 array(
                     'Accept' => 'application/json',
-                    'Authorization' => 'Basic ' . $this->getBearerToken(),
+                    'Authorization' => 'Bearer ' . $this->getBearerToken(),
                     'Content-type' => 'application/json',
                 ),
                 $body
@@ -56,7 +56,7 @@ abstract class AbstractRestRequest extends OmniPayAbstractRequest
     /**
      * @return string
      */
-    public function setUsername($value)
+    public function setUsername($value): AbstractRestRequest
     {
         return $this->setParameter('username', $value);
     }
@@ -72,7 +72,7 @@ abstract class AbstractRestRequest extends OmniPayAbstractRequest
     /**
      * @return string
      */
-    public function setPassword($value)
+    public function setPassword($value): AbstractRestRequest
     {
         return $this->setParameter('password', $value);
     }
@@ -88,7 +88,7 @@ abstract class AbstractRestRequest extends OmniPayAbstractRequest
     /**
      * @return string
      */
-    public function setTestPassword($value)
+    public function setTestPassword($value): AbstractRestRequest
     {
         return $this->setParameter('testPassword', $value);
     }
@@ -105,7 +105,7 @@ abstract class AbstractRestRequest extends OmniPayAbstractRequest
      * Use to define the request verb
      * @return string
      */
-    protected function getHttpMethod()
+    protected function getHttpMethod(): string
     {
         return 'POST';
     }
@@ -113,7 +113,7 @@ abstract class AbstractRestRequest extends OmniPayAbstractRequest
     /**
      * @return string
      */
-    protected function getEndpoint()
+    protected function getEndpoint(): string
     {
         return $this->liveEndPoint;
     }
@@ -124,23 +124,23 @@ abstract class AbstractRestRequest extends OmniPayAbstractRequest
      * @param integer $options
      * @return string
      */
-    protected function toJSON(array $data, $options = 0)
+    protected function toJSON(array $data, ?int $options = 0): string
     {
         return json_encode($data, $options | JSON_UNESCAPED_SLASHES);
     }
 
     /**
      * Allow the use of custom Response
-     * @param array $data
+     * @param array<mixed> $data
      * @param integer $statusCode
      */
-    abstract protected function createResponse($data, $statusCode);
+    abstract protected function createResponse(array $data, int $statusCode);
 
     /**
      * Make the Authorization token for PayZen Rest API
      * @return string
      */
-    private function getBearerToken()
+    private function getBearerToken(): string
     {
         $username = $this->getUsername();
         $password = $this->getPassword();
@@ -159,7 +159,7 @@ abstract class AbstractRestRequest extends OmniPayAbstractRequest
      * @param string
      * @return boolean
      */
-    public function hasParameter($key)
+    public function hasParameter($key): bool
     {
         return $this->parameters->has($key);
     }
@@ -167,7 +167,7 @@ abstract class AbstractRestRequest extends OmniPayAbstractRequest
     /**
      * @return boolean
      */
-    public function getWithForm()
+    public function getWithForm(): bool
     {
         return $this->getParameter('withForm');
     }
@@ -176,7 +176,7 @@ abstract class AbstractRestRequest extends OmniPayAbstractRequest
      * @param boolean
      * @return self
      */
-    public function setWithForm($value)
+    public function setWithForm($value): bool
     {
         return $this->setParameter('withForm', $value);
     }

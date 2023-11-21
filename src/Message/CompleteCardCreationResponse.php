@@ -13,28 +13,28 @@ class CompleteCardCreationResponse extends AbstractResponse implements CardCreat
 
     use GetMetadataTrait;
 
-    public function isSuccessful()
+    public function isSuccessful(): bool
     {
         return $this->getTransactionStatus() == 'ACCEPTED';
     }
 
-    public function getTransactionReference()
+    public function getTransactionReference(): ?string
     {
-        return isset($this->data['vads_trans_id']) ? $this->data['vads_trans_id'] : null;
+        return $this->data['vads_trans_id'] ?? null;
     }
 
     public function getAmount()
     {
-        return isset($this->data['vads_amount']) ? $this->data['vads_amount']: null;
+        return $this->data['vads_amount'] ?? null;
     }
 
     public function getTransactionStatus()
     {
-        return isset($this->data['vads_trans_status']) ? $this->data['vads_trans_status'] : null;
+        return $this->data['vads_trans_status'] ?? null;
     }
 
     public function getUuid()
     {
-        return isset($this->data['vads_trans_uuid']) ? $this->data['vads_trans_uuid'] : null;
+        return $this->data['vads_trans_uuid'] ?? null;
     }
 }
