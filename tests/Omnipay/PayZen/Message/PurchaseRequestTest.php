@@ -8,7 +8,7 @@ use Omnipay\Tests\TestCase;
 
 class PurchaseRequestTest extends TestCase
 {
-    private $request;
+    private PurchaseRequest $request;
 
     public function setUp(): void
     {
@@ -16,6 +16,9 @@ class PurchaseRequestTest extends TestCase
         $this->request = new PurchaseRequest($this->getHttpClient(), $this->getHttpRequest());
     }
 
+    /**
+     * @throws InvalidRequestException
+     */
     public function testGetPurchaseData()
     {
         $this->request->initialize(array(
@@ -63,6 +66,9 @@ class PurchaseRequestTest extends TestCase
         $this->assertSame('2', $data['vads_ext_info_info2']);
     }
 
+    /**
+     * @throws InvalidRequestException
+     */
     public function testGetRegisterPayData()
     {
         $this->request->initialize(array(
@@ -115,6 +121,9 @@ class PurchaseRequestTest extends TestCase
         $this->assertSame(5, $data['vads_redirect_error_timeout']);
     }
 
+    /**
+     * @throws InvalidRequestException
+     */
     public function testGetRegisterPayWithCardReferenceData()
     {
         $this->request->initialize(array(
@@ -166,6 +175,9 @@ class PurchaseRequestTest extends TestCase
         $this->assertSame(5, $data['vads_redirect_error_timeout']);
     }
 
+    /**
+     * @throws InvalidRequestException
+     */
     public function testSetPaymentConfigMulti()
     {
         $this->request->setPaymentConfig('MULTI', ['first' => 10.0, 'count' => 2, 'period' => 5]);
@@ -189,6 +201,9 @@ class PurchaseRequestTest extends TestCase
         $this->request->setPaymentConfig('MULTI', ['first' => 10, 'count' => 3, 'period' => 0]);
     }
 
+    /**
+     * @throws InvalidRequestException
+     */
     public function testSetPaymentConfigMultiExt()
     {
         $this->request->setAmount(33.0);

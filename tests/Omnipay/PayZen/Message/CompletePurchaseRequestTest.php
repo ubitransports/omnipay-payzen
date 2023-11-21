@@ -7,7 +7,7 @@ use Omnipay\Common\Exception\InvalidResponseException;
 
 class CompletePurchaseRequestTest extends TestCase
 {
-    private $request;
+    private CompletePurchaseRequest $request;
 
     public function setUp(): void
     {

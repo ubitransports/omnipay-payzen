@@ -1,4 +1,5 @@
 <?php
+
 namespace Omnipay\PayZen;
 
 use Omnipay\Common\{

@@ -7,7 +7,7 @@ use Omnipay\Tests\TestCase;
 
 class RestPurchaseRequestTest extends TestCase
 {
-    private $request;
+    private RestPurchaseRequest $request;
 
     public function setUp(): void
     {
@@ -30,7 +30,7 @@ class RestPurchaseRequestTest extends TestCase
         $this->request->getData();
     }
 
-    public function getDataMissingCurrency()
+    public function getDataMissingCurrency(): void
     {
         $this->request->initialize([
             'testMode' => false,
@@ -45,6 +45,9 @@ class RestPurchaseRequestTest extends TestCase
         $this->request->getData();
     }
 
+    /**
+     * @throws InvalidRequestException
+     */
     public function testGetDataNoCustomer()
     {
         $testMode = false;
@@ -68,6 +71,9 @@ class RestPurchaseRequestTest extends TestCase
         $this->assertSame($currency, $data['currency']);
     }
 
+    /**
+     * @throws InvalidRequestException
+     */
     public function testGetDataWithCustomer()
     {
         $testMode = false;
@@ -102,6 +108,9 @@ class RestPurchaseRequestTest extends TestCase
         $this->assertEquals('PAYMENT', $data['formAction']);
     }
 
+    /**
+     * @throws InvalidRequestException
+     */
     public function testGetDataWithCardReferenceAndNoForm()
     {
         $testMode = false;
