@@ -1,7 +1,11 @@
 <?php
 namespace Omnipay\PayZen;
 
-use Omnipay\Common\AbstractGateway;
+use Omnipay\Common\{
+    AbstractGateway,
+    Message\AbstractRequest,
+    Message\RequestInterface
+};
 
 /**
  * PayZen Gateway
@@ -18,10 +22,10 @@ class Gateway extends AbstractGateway
 
     public function getDefaultParameters(): array
     {
-        return array(
+        return [
             'certificate' => '',
             'testMode' => false,
-        );
+        ];
     }
 
     public function getCertificate()
@@ -34,22 +38,22 @@ class Gateway extends AbstractGateway
         return $this->setParameter('certificate', $value);
     }
 
-    public function purchase(array $options = array())
+    public function purchase(array $options = []): RequestInterface|AbstractRequest
     {
         return $this->createRequest('\Omnipay\PayZen\Message\PurchaseRequest', $options);
     }
 
-    public function completePurchase(array $options = array())
+    public function completePurchase(array $options = []): RequestInterface|AbstractRequest
     {
         return $this->createRequest('\Omnipay\PayZen\Message\CompletePurchaseRequest', $options);
     }
 
-    public function createCard(array $options = array())
+    public function createCard(array $options = []): RequestInterface|AbstractRequest
     {
         return $this->createRequest('\Omnipay\PayZen\Message\CreateCardRequest', $options);
     }
 
-    public function completeCardCreation(array $options = array())
+    public function completeCardCreation(array $options = []): AbstractRequest
     {
         return $this->createRequest('\Omnipay\PayZen\Message\CompleteCardCreationRequest', $options);
     }

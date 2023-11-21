@@ -72,7 +72,7 @@ class RestPurchaseRequest extends AbstractRestRequest
     /**
      * @inheritdoc
      */
-    protected function createResponse($data, $statusCode)
+    protected function createResponse($data, $statusCode): RestDirectPurchaseResponse|RestResponse
     {
         if (!$this->getWithForm()) {
             return $this->response = new RestDirectPurchaseResponse($this, $data, $statusCode);

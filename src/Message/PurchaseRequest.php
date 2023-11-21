@@ -167,10 +167,11 @@ class PurchaseRequest extends AbstractRequest
     }
 
     /**
+     * @param string $value
      * @return PurchaseRequest
      * @throws InvalidRequestException
      */
-    public function setShipToType($value): PurchaseRequest
+    public function setShipToType(string $value): PurchaseRequest
     {
         $shipToTypeAuthorizedValues = [
             self::SHIP_TYPE_RECLAIM_IN_SHOP,
@@ -200,6 +201,8 @@ class PurchaseRequest extends AbstractRequest
     }
 
     /**
+     * @param string $type
+     * @param array|null $values
      * @return PurchaseRequest
      * @throws InvalidRequestException
      */
@@ -271,7 +274,7 @@ class PurchaseRequest extends AbstractRequest
             $totalAmount += (int) $amount;
         }
 
-        if ($totalAmount !== (int) $this->getAmountInteger()) {
+        if ($totalAmount !== $this->getAmountInteger()) {
             throw new InvalidRequestException("Sum of amounts doesn't match with the total");
         }
 
@@ -289,7 +292,7 @@ class PurchaseRequest extends AbstractRequest
             // Don't allow integers for currencies that support decimals.
             // This is for legacy reasons - upgrades from v0.9
             if ($this->getCurrencyDecimalPlaces() > 0) {
-                if (is_int($amount) || (is_string($amount) && false === strpos((string) $amount, '.'))) {
+                if (is_int($amount) || (is_string($amount) && str_contains((string)$amount, '.')) === false) {
                     throw new InvalidRequestException(
                         'Please specify amount as a string or float, '
                         . 'with decimal places (e.g. \'10.00\' to represent $10.00).'
@@ -317,6 +320,8 @@ class PurchaseRequest extends AbstractRequest
 
             return $this->formatCurrency($amount);
         }
+
+        return $this->formatCurrency(0);
     }
 
     private function toFloat($value): float

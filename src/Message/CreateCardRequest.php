@@ -4,7 +4,7 @@ namespace Omnipay\PayZen\Message;
 
 class CreateCardRequest extends AbstractRequest
 {
-    public function getData()
+    public function getData(): array
     {
         $data = array();
         $data['vads_action_mode'] = 'INTERACTIVE';

@@ -10,7 +10,7 @@ trait GetMetadataTrait
         $metadata = array();
 
         foreach ($this->data as $key => $value) {
-            if (0 === strpos($key, $prefix)) {
+            if (str_starts_with($key, $prefix)) {
                 $metadata[substr($key, strlen($prefix))] = $value;
             }
         }

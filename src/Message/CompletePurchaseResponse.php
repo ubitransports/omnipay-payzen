@@ -28,7 +28,7 @@ class CompletePurchaseResponse extends AbstractResponse implements CardCreationR
         return $this->data['vads_order_id'] ?? null;
     }
 
-    public function getAmount()
+    public function getAmount(): float|int|null
     {
         return isset($this->data['vads_amount']) ? $this->data['vads_amount'] / 100 : null;
     }

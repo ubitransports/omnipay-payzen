@@ -4,9 +4,6 @@ namespace Omnipay\PayZen\Message;
 
 trait GetCardInformationTrait
 {
-    /**
-     * @inheritDoc
-     */
     public function hasCreatedCard(): bool
     {
         if (isset($this->data['vads_identifier_status'])

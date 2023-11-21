@@ -102,7 +102,7 @@ abstract class AbstractRequest extends OmniPayAbstractRequest
 
     public function setPaymentCards($value): AbstractRequest
     {
-        $this->setParameter('paymentCards', $value);
+        return $this->setParameter('paymentCards', $value);
     }
 
     public function getPaymentCards()
