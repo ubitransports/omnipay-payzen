@@ -26,7 +26,10 @@ class PurchaseRequest extends AbstractRequest
     const SHIP_TYPE_PACKAGE_DELIVERY_COMPANY = 'PACKAGE_DELIVERY_COMPANY';
     const SHIP_TYPE_ETICKET = 'ETICKET';
 
-    public function getData()
+    /**
+     * @throws InvalidRequestException
+     */
+    public function getData(): array
     {
         $this->validate('amount');
 
@@ -95,22 +98,22 @@ class PurchaseRequest extends AbstractRequest
         return $data;
     }
 
-    public function sendData($data)
+    public function sendData($data): RedirectToGatewayResponse
     {
         return $this->response = new RedirectToGatewayResponse($this, $data);
     }
 
-    public function setCreateCard($value)
+    public function setCreateCard($value): PurchaseRequest
     {
         return $this->setParameter('createCard', $value);
     }
 
-    public function isCreatingCard()
+    public function isCreatingCard(): bool
     {
         return true === $this->getParameter('createCard', false);
     }
 
-    public function setCardReference($value)
+    public function setCardReference($value): PurchaseRequest
     {
         return $this->setParameter('cardReference', $value);
     }
@@ -120,12 +123,12 @@ class PurchaseRequest extends AbstractRequest
         return $this->getParameter('cardReference');
     }
 
-    public function hasCardReference()
+    public function hasCardReference(): bool
     {
         return null !== $this->getCardReference();
     }
 
-    private function resolvePageAction()
+    private function resolvePageAction(): string
     {
         if ($this->isCreatingCard()
             && false === $this->hasCardReference()
@@ -147,23 +150,18 @@ class PurchaseRequest extends AbstractRequest
     }
 
     /**
-     * @param int $value
-     * @return PurchaseRequest
      * @throws InvalidRequestException
      */
-    public function setCaptureDelay($value)
+    public function setCaptureDelay(int $value): PurchaseRequest
     {
-        if (!is_int($value) || $value < 0 || $value > 365) {
+        if ($value < 0 || $value > 365) {
             throw new InvalidRequestException('Capture delay must be an integer between 0 and 365');
         }
 
         return $this->setParameter('captureDelay', $value);
     }
 
-    /**
-     * @return string
-     */
-    public function getShipToType()
+    public function getShipToType(): ?string
     {
         return $this->getParameter('shipToType');
     }
@@ -173,7 +171,7 @@ class PurchaseRequest extends AbstractRequest
      * @return PurchaseRequest
      * @throws InvalidRequestException
      */
-    public function setShipToType($value)
+    public function setShipToType(string $value): PurchaseRequest
     {
         $shipToTypeAuthorizedValues = [
             self::SHIP_TYPE_RECLAIM_IN_SHOP,
@@ -204,11 +202,11 @@ class PurchaseRequest extends AbstractRequest
 
     /**
      * @param string $type
-     * @param array $values
+     * @param array|null $values
      * @return PurchaseRequest
      * @throws InvalidRequestException
      */
-    public function setPaymentConfig($type, $values = [])
+    public function setPaymentConfig(string $type, ?array $values = []): PurchaseRequest
     {
         if ($type === self::PAYMENT_TYPE_SINGLE) {
             return $this->setParameter('paymentConfig', $type);
@@ -229,11 +227,9 @@ class PurchaseRequest extends AbstractRequest
     }
 
     /**
-     * @param array $settings
-     * @return array
      * @throws InvalidRequestException
      */
-    private function checkAndFormatMultiPaymentConfig(array $settings)
+    private function checkAndFormatMultiPaymentConfig(array $settings): array
     {
         if (!isset($settings['first'], $settings['count'], $settings['period'])) {
             throw new InvalidRequestException('Invalid parameter for type MULTI');
@@ -253,12 +249,10 @@ class PurchaseRequest extends AbstractRequest
     }
 
     /**
-     * @param array $settings
-     * @return array
      * @throws Exception
      * @throws InvalidRequestException
      */
-    private function checkAndFormatMultiExtPaymentConfig(array $settings)
+    private function checkAndFormatMultiExtPaymentConfig(array $settings): array
     {
         // First date must be greater or equal today
         $minPeriodDate = (new DateTime())->format('Ymd');
@@ -280,7 +274,7 @@ class PurchaseRequest extends AbstractRequest
             $totalAmount += (int) $amount;
         }
 
-        if ($totalAmount !== (int) $this->getAmountInteger()) {
+        if ($totalAmount !== $this->getAmountInteger()) {
             throw new InvalidRequestException("Sum of amounts doesn't match with the total");
         }
 
@@ -291,15 +285,14 @@ class PurchaseRequest extends AbstractRequest
      * Validates and returns the formatted given amount.
      *
      * @throws InvalidRequestException on any validation failure.
-     * @return string The amount formatted to the correct number of decimal places for the selected currency.
      */
-    public function formatPaymentConfigAmount($amount)
+    public function formatPaymentConfigAmount($amount): string
     {
         if ($amount !== null) {
             // Don't allow integers for currencies that support decimals.
             // This is for legacy reasons - upgrades from v0.9
             if ($this->getCurrencyDecimalPlaces() > 0) {
-                if (is_int($amount) || (is_string($amount) && false === strpos((string) $amount, '.'))) {
+                if (is_int($amount) || (is_string($amount) && str_contains((string)$amount, '.')) === false) {
                     throw new InvalidRequestException(
                         'Please specify amount as a string or float, '
                         . 'with decimal places (e.g. \'10.00\' to represent $10.00).'
@@ -327,18 +320,20 @@ class PurchaseRequest extends AbstractRequest
 
             return $this->formatCurrency($amount);
         }
+
+        return $this->formatCurrency(0);
     }
 
-    private function toFloat($value)
+    private function toFloat($value): float
     {
         if (!is_string($value) && !is_int($value) && !is_float($value)) {
-            throw new InvalidArgumentException('Data type is not a valid decimal number.');
+            throw new \InvalidArgumentException('Data type is not a valid decimal number.');
         }
 
         if (is_string($value)) {
             // Validate generic number, with optional sign and decimals.
             if (!preg_match('/^[-]?[0-9]+(\.[0-9]*)?$/', $value)) {
-                throw new InvalidArgumentException('String is not a valid decimal number.');
+                throw new \InvalidArgumentException('String is not a valid decimal number.');
             }
         }
 

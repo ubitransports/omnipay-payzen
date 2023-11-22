@@ -7,34 +7,34 @@ use Omnipay\Common\Message\RedirectResponseInterface;
 
 class RedirectToGatewayResponse extends AbstractResponse implements RedirectResponseInterface
 {
-    public $liveEndpoint = 'https://secure.payzen.eu/vads-payment/';
+    public string $liveEndpoint = 'https://secure.payzen.eu/vads-payment/';
 
-    public function getEndpoint()
+    public function getEndpoint(): string
     {
         return $this->liveEndpoint;
     }
 
-    public function isSuccessful()
+    public function isSuccessful(): bool
     {
         return false;
     }
 
-    public function isRedirect()
+    public function isRedirect(): bool
     {
         return true;
     }
 
-    public function getRedirectUrl()
+    public function getRedirectUrl(): string
     {
         return $this->getEndpoint();
     }
 
-    public function getRedirectMethod()
+    public function getRedirectMethod(): string
     {
         return 'POST';
     }
 
-    public function getRedirectData()
+    public function getRedirectData(): mixed
     {
         return $this->data;
     }

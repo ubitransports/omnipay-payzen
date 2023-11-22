@@ -1,12 +1,14 @@
 <?php
 namespace Omnipay\PayZen\Message;
 
+use Omnipay\Common\Exception\InvalidRequestException;
+
 class RestPurchaseRequest extends AbstractRestRequest
 {
     /**
-     * @return array
+     * @throws InvalidRequestException
      */
-    public function getData()
+    public function getData(): array
     {
         $this->validate('amount', 'currency');
 
@@ -44,7 +46,7 @@ class RestPurchaseRequest extends AbstractRestRequest
         return $data;
     }
 
-    public function getFormType()
+    public function getFormType(): string
     {
         if (!$this->hasParameter('withForm') || $this->getWithForm()) {
             return 'PAYMENT';
@@ -53,7 +55,7 @@ class RestPurchaseRequest extends AbstractRestRequest
         return 'SILENT';
     }
 
-    public function getCardReference()
+    public function getCardReference(): ?string
     {
         return $this->getParameter('cardReference');
     }
@@ -62,7 +64,7 @@ class RestPurchaseRequest extends AbstractRestRequest
      * Endpoint for this request
      * @return string
      */
-    protected function getEndpoint()
+    protected function getEndpoint(): string
     {
         return parent::getEndpoint() . '/api-payment/V4/Charge/CreatePayment';
     }
@@ -70,7 +72,7 @@ class RestPurchaseRequest extends AbstractRestRequest
     /**
      * @inheritdoc
      */
-    protected function createResponse($data, $statusCode)
+    protected function createResponse($data, $statusCode): RestDirectPurchaseResponse|RestResponse
     {
         if (!$this->getWithForm()) {
             return $this->response = new RestDirectPurchaseResponse($this, $data, $statusCode);

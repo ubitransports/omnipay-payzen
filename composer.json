@@ -22,11 +22,18 @@
         "psr-4": { "Omnipay\\PayZen\\" : "src/" }
     },
     "require": {
-        "php": "^7.2|^8",
-        "omnipay/common": "^3.0"
+        "php": "^8",
+        "omnipay/common": "^3.0",
+        "symfony/http-client": "^6.3"
     },
     "require-dev": {
         "omnipay/tests": "^4.0",
-        "phpunit/phpunit": "^8.5"
+        "phpunit/phpunit": "^8.5",
+        "http-interop/http-factory-guzzle": "^1.2"
+    },
+    "config": {
+        "allow-plugins": {
+            "php-http/discovery": true
+        }
     }
 }

@@ -1,7 +1,12 @@
 <?php
+
 namespace Omnipay\PayZen;
 
-use Omnipay\Common\AbstractGateway;
+use Omnipay\Common\{
+    AbstractGateway,
+    Message\AbstractRequest,
+    Message\RequestInterface
+};
 
 /**
  * PayZen Gateway
@@ -11,46 +16,46 @@ use Omnipay\Common\AbstractGateway;
  */
 class Gateway extends AbstractGateway
 {
-    public function getName()
+    public function getName(): string
     {
         return 'PayZen';
     }
 
-    public function getDefaultParameters()
+    public function getDefaultParameters(): array
     {
-        return array(
+        return [
             'certificate' => '',
             'testMode' => false,
-        );
+        ];
     }
 
-    public function getCertificate()
+    public function getCertificate(): string
     {
         return $this->getParameter('certificate');
     }
 
-    public function setCertificate($value)
+    public function setCertificate($value): Gateway
     {
         return $this->setParameter('certificate', $value);
     }
 
-    public function purchase(array $parameters = array())
+    public function purchase(array $options = []): RequestInterface|AbstractRequest
     {
-        return $this->createRequest('\Omnipay\PayZen\Message\PurchaseRequest', $parameters);
+        return $this->createRequest('\Omnipay\PayZen\Message\PurchaseRequest', $options);
     }
 
-    public function completePurchase(array $parameters = array())
+    public function completePurchase(array $options = []): RequestInterface|AbstractRequest
     {
-        return $this->createRequest('\Omnipay\PayZen\Message\CompletePurchaseRequest', $parameters);
+        return $this->createRequest('\Omnipay\PayZen\Message\CompletePurchaseRequest', $options);
     }
 
-    public function createCard(array $parameters = array())
+    public function createCard(array $options = []): RequestInterface|AbstractRequest
     {
-        return $this->createRequest('\Omnipay\PayZen\Message\CreateCardRequest', $parameters);
+        return $this->createRequest('\Omnipay\PayZen\Message\CreateCardRequest', $options);
     }
 
-    public function completeCardCreation(array $parameters = array())
+    public function completeCardCreation(array $options = []): AbstractRequest
     {
-        return $this->createRequest('\Omnipay\PayZen\Message\CompleteCardCreationRequest', $parameters);
+        return $this->createRequest('\Omnipay\PayZen\Message\CompleteCardCreationRequest', $options);
     }
 }

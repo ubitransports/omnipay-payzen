@@ -15,7 +15,7 @@ abstract class AbstractRequest extends OmniPayAbstractRequest
         return $this->getParameter('merchantId');
     }
 
-    public function setMerchantId($value)
+    public function setMerchantId($value): AbstractRequest
     {
         return $this->setParameter('merchantId', $value);
     }
@@ -25,7 +25,7 @@ abstract class AbstractRequest extends OmniPayAbstractRequest
         return $this->getParameter('transactionDate');
     }
 
-    public function setTransactionDate($value)
+    public function setTransactionDate($value): AbstractRequest
     {
         return $this->setParameter('transactionDate', $value);
     }
@@ -35,12 +35,12 @@ abstract class AbstractRequest extends OmniPayAbstractRequest
         return $this->getParameter('certificate');
     }
 
-    public function setCertificate($value)
+    public function setCertificate($value): AbstractRequest
     {
         return $this->setParameter('certificate', $value);
     }
 
-    public function setSuccessUrl($value)
+    public function setSuccessUrl($value): AbstractRequest
     {
         return $this->setParameter('successUrl', $value);
     }
@@ -50,7 +50,7 @@ abstract class AbstractRequest extends OmniPayAbstractRequest
         return $this->getParameter('successUrl');
     }
 
-    public function setRedirectSuccessTimeout($value)
+    public function setRedirectSuccessTimeout($value): AbstractRequest
     {
         return $this->setParameter('redirectSuccessTimeout', $value);
     }
@@ -60,7 +60,7 @@ abstract class AbstractRequest extends OmniPayAbstractRequest
         return $this->getParameter('redirectSuccessTimeout');
     }
 
-    public function setCancelUrl($value)
+    public function setCancelUrl($value): AbstractRequest
     {
         return $this->setParameter('cancelUrl', $value);
     }
@@ -70,7 +70,7 @@ abstract class AbstractRequest extends OmniPayAbstractRequest
         return $this->getParameter('cancelUrl');
     }
 
-    public function setErrorUrl($value)
+    public function setErrorUrl($value): AbstractRequest
     {
         return $this->setParameter('errorUrl', $value);
     }
@@ -80,7 +80,7 @@ abstract class AbstractRequest extends OmniPayAbstractRequest
         return $this->getParameter('errorUrl');
     }
 
-    public function setRedirectErrorTimeout($value)
+    public function setRedirectErrorTimeout($value): AbstractRequest
     {
         return $this->setParameter('redirectErrorTimeout', $value);
     }
@@ -90,7 +90,7 @@ abstract class AbstractRequest extends OmniPayAbstractRequest
         return $this->getParameter('redirectErrorTimeout');
     }
 
-    public function setRefusedUrl($value)
+    public function setRefusedUrl($value): AbstractRequest
     {
         return $this->setParameter('refusedUrl', $value);
     }
@@ -100,9 +100,9 @@ abstract class AbstractRequest extends OmniPayAbstractRequest
         return $this->getParameter('refusedUrl');
     }
 
-    public function setPaymentCards($value)
+    public function setPaymentCards($value): AbstractRequest
     {
-        $this->setParameter('paymentCards', $value);
+        return $this->setParameter('paymentCards', $value);
     }
 
     public function getPaymentCards()
@@ -110,7 +110,7 @@ abstract class AbstractRequest extends OmniPayAbstractRequest
         return $this->getParameter('paymentCards');
     }
 
-    public function setOrderId($value)
+    public function setOrderId($value): AbstractRequest
     {
         return $this->setParameter('orderId', $value);
     }
@@ -120,7 +120,7 @@ abstract class AbstractRequest extends OmniPayAbstractRequest
         return $this->getParameter('orderId');
     }
 
-    public function setUuid($value)
+    public function setUuid($value): AbstractRequest
     {
         return $this->setParameter('vads_trans_uuid', $value);
     }
@@ -130,7 +130,7 @@ abstract class AbstractRequest extends OmniPayAbstractRequest
         return $this->getParameter('vads_trans_uuid');
     }
 
-    public function setOwnerReference($value)
+    public function setOwnerReference($value): AbstractRequest
     {
         return $this->setParameter('ownerReference', $value);
     }
@@ -140,7 +140,7 @@ abstract class AbstractRequest extends OmniPayAbstractRequest
         return $this->getParameter('ownerReference');
     }
 
-    public function setMetadata(array $value)
+    public function setMetadata(array $value): AbstractRequest
     {
         return $this->setParameter('metadata', $value);
     }
@@ -150,20 +150,20 @@ abstract class AbstractRequest extends OmniPayAbstractRequest
         return $this->getParameter('metadata');
     }
 
-    public function formatCurrency($amount)
+    public function formatCurrency($amount): string
     {
         return (string) intval(strval($amount * 100));
     }
 
-    public function addParameter($key, $value)
+    public function addParameter($key, $value): AbstractRequest
     {
-        return $this->parameters->set($key, $value);
+        return $this->setParameter($key, $value);
     }
 
     /**
      * @see https://payzen.eu/wp-content/uploads/2013/04/Guide_d_implementation_formulaire_paiement_PayZen_v3.4.pdf
      */
-    protected function generateSignature($data)
+    protected function generateSignature($data): string
     {
         // Sort the data
         ksort($data);

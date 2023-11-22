@@ -4,38 +4,17 @@ namespace Omnipay\PayZen\Message;
 
 interface CardCreationResponseInterface
 {
-    /**
-     * @return bool
-     */
-    public function hasCreatedCard();
+    public function hasCreatedCard(): bool;
 
-    /**
-     * @return string|null
-     */
-    public function getCardReference();
+    public function getCardReference(): ?string;
 
-    /**
-     * @return string|null
-     */
-    public function getCardNumber();
+    public function getCardNumber(): ?string;
 
-    /**
-     * @return \DateTime|null
-     */
-    public function getCardExpiryDate();
+    public function getCardExpiryDate(): ?\DateTime;
 
-    /**
-     * @return string|null
-     */
-    public function getCardBrand();
+    public function getCardBrand(): ?string;
 
-    /**
-     * @return string|null
-     */
-    public function getOwnerReference();
+    public function getOwnerReference(): ?string;
 
-    /**
-     * @return array
-     */
-    public function getMetadata();
+    public function getMetadata(): array;
 }
