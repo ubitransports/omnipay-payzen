@@ -6,15 +6,15 @@ interface CardCreationResponseInterface
 {
     public function hasCreatedCard(): bool;
 
-    public function getCardReference();
+    public function getCardReference(): ?string;
 
-    public function getCardNumber();
+    public function getCardNumber(): ?string;
 
     public function getCardExpiryDate(): ?\DateTime;
 
-    public function getCardBrand();
+    public function getCardBrand(): ?string;
 
-    public function getOwnerReference();
+    public function getOwnerReference(): ?string;
 
     public function getMetadata(): array;
 }

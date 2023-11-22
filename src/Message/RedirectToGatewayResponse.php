@@ -34,7 +34,7 @@ class RedirectToGatewayResponse extends AbstractResponse implements RedirectResp
         return 'POST';
     }
 
-    public function getRedirectData()
+    public function getRedirectData(): mixed
     {
         return $this->data;
     }

@@ -54,10 +54,10 @@ abstract class AbstractRestRequest extends OmniPayAbstractRequest
     }
 
     /**
-     * @param $value
+     * @param string $value
      * @return AbstractRestRequest
      */
-    public function setUsername($value): AbstractRestRequest
+    public function setUsername(string $value): AbstractRestRequest
     {
         return $this->setParameter('username', $value);
     }
@@ -137,7 +137,7 @@ abstract class AbstractRestRequest extends OmniPayAbstractRequest
      * @param array<mixed> $data
      * @param integer $statusCode
      */
-    abstract protected function createResponse(array $data, int $statusCode);
+    abstract protected function createResponse(array $data, int $statusCode): RestDirectPurchaseResponse|RestResponse;
 
     /**
      * Make the Authorization token for PayZen Rest API

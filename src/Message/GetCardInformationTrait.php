@@ -20,7 +20,7 @@ trait GetCardInformationTrait
         return $this->data['vads_identifier'] ?? null;
     }
 
-    public function getCardNumber()
+    public function getCardNumber(): ?string
     {
         return $this->data['vads_card_number'] ?? null;
     }
@@ -40,12 +40,12 @@ trait GetCardInformationTrait
         return $beginningOfMonth->modify('last day of this month');
     }
 
-    public function getCardBrand()
+    public function getCardBrand(): ?string
     {
         return $this->data['vads_card_brand'] ?? null;
     }
 
-    public function getOwnerReference()
+    public function getOwnerReference(): ?string
     {
         return $this->data['vads_ext_info_owner_reference'] ?? null
         ;

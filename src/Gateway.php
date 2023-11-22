@@ -29,7 +29,7 @@ class Gateway extends AbstractGateway
         ];
     }
 
-    public function getCertificate()
+    public function getCertificate(): string
     {
         return $this->getParameter('certificate');
     }

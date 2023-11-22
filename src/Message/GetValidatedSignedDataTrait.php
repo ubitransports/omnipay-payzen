@@ -6,7 +6,7 @@ use Omnipay\Common\Exception\InvalidResponseException;
 
 trait GetValidatedSignedDataTrait
 {
-    public function getData()
+    public function getData(): mixed
     {
         $signature = $this->generateSignature($this->httpRequest->request->all());
         $httpRequestSignature = $this->httpRequest->request->get('signature');

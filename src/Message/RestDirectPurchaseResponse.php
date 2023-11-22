@@ -17,7 +17,7 @@ class RestDirectPurchaseResponse extends RestResponse
         return $this->getData()['answer']['transactions'][0]['uuid'];
     }
 
-    public function getTransactionReference()
+    public function getTransactionReference(): ?string
     {
         if (!$this->isSuccessful()) {
             return null;
