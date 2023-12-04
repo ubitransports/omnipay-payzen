@@ -18,7 +18,11 @@ class CompletePurchaseResponse extends AbstractResponse implements CardCreationR
         return in_array($this->getTransactionStatus(), ['AUTHORISED', 'CAPTURED']);
     }
 
-    public function getTransactionReference()
+    public function isCancelled() {
+      return in_array($this->getTransactionStatus(), ['ABANDONED', 'CANCELED']);
+    }
+
+  public function getTransactionReference()
     {
         return $this->data['vads_trans_id'] ?? null;
     }
