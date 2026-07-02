@@ -292,7 +292,7 @@ class PurchaseRequest extends AbstractRequest
             // Don't allow integers for currencies that support decimals.
             // This is for legacy reasons - upgrades from v0.9
             if ($this->getCurrencyDecimalPlaces() > 0) {
-                if (is_int($amount) || (is_string($amount) && str_contains((string)$amount, '.')) === false) {
+                if (is_float($amount) === false && (is_string($amount) && str_contains((string)$amount, '.')) === false) {
                     throw new InvalidRequestException(
                         'Please specify amount as a string or float, '
                         . 'with decimal places (e.g. \'10.00\' to represent $10.00).'

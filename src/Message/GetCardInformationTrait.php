@@ -15,7 +15,7 @@ trait GetCardInformationTrait
         return false;
     }
 
-    public function getCardReference()
+    public function getCardReference(): ?string
     {
         return $this->data['vads_identifier'] ?? null;
     }
