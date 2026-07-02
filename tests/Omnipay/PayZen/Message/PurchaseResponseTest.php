@@ -2,11 +2,14 @@
 
 namespace Omnipay\PayZen\Message;
 
+use Omnipay\Common\Message\ResponseInterface;
 use Omnipay\Tests\TestCase;
 
 class PurchaseResponseTest extends TestCase
 {
     private PurchaseRequest $request;
+
+    private ResponseInterface $response;
 
     public function setUp(): void
     {
