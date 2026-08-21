@@ -31,6 +31,12 @@ class PurchaseRequest extends AbstractRequest
     const RETURN_MODE_GET = 'GET';
     const RETURN_MODE_POST = 'POST';
 
+    const RETURN_MODES_ALLOWED = [
+        self::RETURN_MODE_EMPTY,
+        self::RETURN_MODE_NONE,
+        self::RETURN_MODE_GET,
+        self::RETURN_MODE_POST,
+    ];
     public function getData()
     {
         $this->validate('amount');
@@ -60,8 +66,7 @@ class PurchaseRequest extends AbstractRequest
             $data['vads_ship_to_type'] = $this->getShipToType();
         }
 
-        $returnMode = $this->getReturnMode();
-        if (null !== $this->getReturnMode()) {
+        if ($this->getReturnMode() !== null) {
             $data['vads_return_mode'] = $returnMode;
         }
 
@@ -253,16 +258,9 @@ class PurchaseRequest extends AbstractRequest
      */
     public function setReturnMode($value)
     {
-        $returnModeValues = [
-            self::RETURN_MODE_EMPTY,
-            self::RETURN_MODE_NONE,
-            self::RETURN_MODE_GET,
-            self::RETURN_MODE_POST,
-        ];
-
-        if (!in_array($value, $returnModeValues)) {
+        if (!in_array($value, self::RETURN_MODES_ALLOWED)) {
             throw new InvalidRequestException(
-                sprintf('Invalid returnMode. Authorized values are %s', implode(', ', $returnModeValues))
+                sprintf('Invalid returnMode. Authorized values are %s', implode(', ', self::RETURN_MODES_ALLOWED))
             );
         }
 
